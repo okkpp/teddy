@@ -27,11 +27,12 @@ public class DemoApiApplication {
         }
 
 //        JbootAppListenerManager.me().onJfinalPluginConfig(new JfinalPlugins(plugins));
-        
+        System.out.println("start plugin");
         startPlugins();
         
 		SpringApplication.run(DemoApiApplication.class, args);
 	}
+	
 	private static void startPlugins() {
 		List<IPlugin> pluginList = plugins.getPluginList();
 		if (pluginList == null) {
