@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
 
 import com.jfinal.config.Constants;
 import com.jfinal.config.Plugins;
@@ -21,18 +22,22 @@ public class DemoApiApplication {
 	private static final Plugins plugins = new Plugins();
 	
 	public static void main(String[] args) {
+		
+		SpringApplication.run(DemoApiApplication.class, args);
+	}
+	
+	@Bean
+	public boolean JbootDbPlugin() {
 		List<ActiveRecordPlugin> arps = JbootDbManager.me().getActiveRecordPlugins();
         for (ActiveRecordPlugin arp : arps) {
             plugins.add(arp);
         }
 
 //        JbootAppListenerManager.me().onJfinalPluginConfig(new JfinalPlugins(plugins));
-        System.out.println("start plugin");
+        System.out.println("start JfinalPlugins");
         startPlugins();
-        
-		SpringApplication.run(DemoApiApplication.class, args);
+		return true;
 	}
-	
 	private static void startPlugins() {
 		List<IPlugin> pluginList = plugins.getPluginList();
 		if (pluginList == null) {
