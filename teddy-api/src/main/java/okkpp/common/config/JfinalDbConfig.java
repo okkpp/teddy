@@ -1,10 +1,11 @@
-package okkpp;
+package okkpp.common.config;
 
 import java.util.List;
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 
 import com.jfinal.config.Constants;
 import com.jfinal.config.Plugins;
@@ -14,18 +15,16 @@ import com.jfinal.plugin.activerecord.ActiveRecordPlugin;
 
 import io.jboot.db.JbootDbManager;
 
-@SpringBootApplication
-public class DemoApiApplication {
+@Configuration
+public class JfinalDbConfig {
 
+	static final Logger logger = LoggerFactory.getLogger(JfinalDbConfig.class);
+	
 	private static Log log;
 	
 	private static final Plugins plugins = new Plugins();
 	
-	public static void main(String[] args) {
-		
-		SpringApplication.run(DemoApiApplication.class, args);
-	}
-	
+
 	@Bean
 	public boolean JbootDbPlugin() {
 		List<ActiveRecordPlugin> arps = JbootDbManager.me().getActiveRecordPlugins();
@@ -34,7 +33,7 @@ public class DemoApiApplication {
         }
 
 //        JbootAppListenerManager.me().onJfinalPluginConfig(new JfinalPlugins(plugins));
-        System.out.println("start JfinalPlugins");
+        logger.info("start JfinalPlugins");
         startPlugins();
 		return true;
 	}
