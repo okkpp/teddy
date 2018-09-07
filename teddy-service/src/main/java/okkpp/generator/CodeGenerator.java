@@ -1,4 +1,4 @@
-package okkpp.gen;
+package okkpp.generator;
 
 import java.util.List;
 
@@ -7,10 +7,10 @@ import com.jfinal.plugin.activerecord.generator.MetaBuilder;
 import com.jfinal.plugin.activerecord.generator.TableMeta;
 
 import io.jboot.codegen.CodeGenHelpler;
-import io.jboot.codegen.model.JbootBaseModelGenerator;
-import io.jboot.codegen.model.JbootModelnfoGenerator;
-import io.jboot.codegen.service.JbootServiceImplGenerator;
-import io.jboot.codegen.service.JbootServiceInterfaceGenerator;
+import okkpp.generator.model.MyBaseModelGenerator;
+import okkpp.generator.model.MyModelInfoGenerator;
+import okkpp.generator.service.MyServiceImplGenerator;
+import okkpp.generator.service.MyServiceInterfaceGenerator;
 
 public class CodeGenerator {
 
@@ -37,15 +37,15 @@ public class CodeGenerator {
         List<TableMeta> tableMetaList = metaBuilder.build();
         CodeGenHelpler.excludeTables(tableMetaList, null);
 
-        new JbootBaseModelGenerator(baseModelPackage, baseModelDir).generate(tableMetaList);
-        new JbootModelnfoGenerator(modelPackage, baseModelPackage, modelDir).generate(tableMetaList);
+        new MyBaseModelGenerator(baseModelPackage, baseModelDir).generate(tableMetaList);
+        new MyModelInfoGenerator(modelPackage, baseModelPackage, modelDir).generate(tableMetaList);
         
         //生成service
         //JbootServiceGenerator.run(basePackage, modelPackage);
         System.out.println("start generate...");
 
-        new JbootServiceInterfaceGenerator(basePackage, modelPackage).generate(tableMetaList);
-        new JbootServiceImplGenerator(basePackage , modelPackage).generate(tableMetaList);
+        new MyServiceInterfaceGenerator(basePackage, modelPackage).generate(tableMetaList);
+        new MyServiceImplGenerator(basePackage , modelPackage).generate(tableMetaList);
 
     }
 }

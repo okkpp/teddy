@@ -5,7 +5,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import okkpp.model.User;
 import okkpp.service.TestService;
+import okkpp.service.UserService;
 
 @RequestMapping("/test")
 @RestController
@@ -13,10 +15,13 @@ public class TestController {
 
 	@Autowired
 	TestService service;
+	@Autowired
+	UserService user;
 	
 	@GetMapping("/page")
 	public String page() {
-		service.test();
-		return "page";
+		User u = user.findById(1);
+		System.out.println(u.toJson());
+		return u.toJson();
 	}
 }
