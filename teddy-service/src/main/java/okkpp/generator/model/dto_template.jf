@@ -1,0 +1,27 @@
+package #(baseModelPackageName);
+
+import java.io.Serializable;
+
+public class #(tableMeta.baseModelName) implements Serializable {
+
+	private static final long serialVersionUID = 1L;
+	
+#for(cm : tableMeta.columnMetas)
+	#set(argName = javaKeyword.contains(cm.attrName) ? '_' + cm.attrName : cm.attrName)
+	private #(cm.javaType) #(argName);
+	
+#end
+#for(cm : tableMeta.columnMetas)
+	#set(argName = javaKeyword.contains(cm.attrName) ? '_' + cm.attrName : cm.attrName)
+	public void set#(firstCharToUpperCase(cm.attrName))(#(cm.javaType) #(argName)) {
+		this.#(argName) = #(argName);
+	}
+	
+	#set(getterOfModel = getterTypeMap.get(cm.javaType))
+	public #(cm.javaType) get#(firstCharToUpperCase(cm.attrName))() {
+		return this.#(cm.name);
+	}
+
+#end
+}
+

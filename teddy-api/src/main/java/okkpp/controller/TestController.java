@@ -1,5 +1,6 @@
 package okkpp.controller;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -9,6 +10,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
+import okkpp.dto.UserDTO;
 import okkpp.model.User;
 import okkpp.service.TestService;
 import okkpp.service.UserService;
@@ -28,9 +30,11 @@ public class TestController {
             @ApiImplicitParam(name = "username", paramType = "query", value = "用户名", required = true, dataType = "String")
     })
 	@GetMapping("/page")
-	public String page(String username) {
+	public UserDTO page(String username) {
 		User u = user.findById(1);
 		System.out.println(u.toJson());
-		return u.toJson();
+		UserDTO result = new UserDTO();
+		BeanUtils.copyProperties(u, result);
+		return result;
 	}
 }
