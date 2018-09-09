@@ -14,4 +14,12 @@ import org.springframework.stereotype.Service;
 @Singleton
 public class UserServiceImpl extends JbootServiceBase<User> implements UserService {
 
+	private User userDao = new User().dao();
+	
+	@Override
+	public User findLoginUser(String username, String password) {
+		User user = userDao.findFirst("select * from t_user where username = ? and password = ?", username, password);
+		return user;
+	}
+
 }
