@@ -25,10 +25,11 @@ public class ShiroConfig {
 		filterChain.put("/user/login", "anon");
 		
 		filterChain.put("/swagger-ui.html", "anon");
+		filterChain.put("/webjars/**", "anon");
 		filterChain.put("/swagger-resources/**", "anon");
 		filterChain.put("/v2/**", "anon");
 		
-		filterChain.put("/**", "authc");
+		filterChain.put("/**", "anon");
 		shiroFilter.setFilterChainDefinitionMap(filterChain);
 		
 		return shiroFilter;

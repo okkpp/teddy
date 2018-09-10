@@ -14,11 +14,12 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
+import okkpp.common.base.BaseController;
 
 @Api(description="用户登陆管理")
 @RequestMapping("user")
 @RestController
-public class UserController {
+public class UserController extends BaseController {
 
 	@ApiOperation("登陆")
     @ApiImplicitParams({

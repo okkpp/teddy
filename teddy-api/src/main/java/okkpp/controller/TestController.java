@@ -10,15 +10,17 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
+import okkpp.common.base.BaseController;
 import okkpp.dto.UserDTO;
 import okkpp.model.User;
 import okkpp.service.TestService;
 import okkpp.service.UserService;
 
-@Api(description="测试API")
+@Api(value="测试API")
 @RequestMapping("/test")
 @RestController
-public class TestController {
+public class TestController extends BaseController {
 
 	@Autowired
 	TestService service;
@@ -30,11 +32,17 @@ public class TestController {
             @ApiImplicitParam(name = "username", paramType = "query", value = "用户名", required = true, dataType = "String")
     })
 	@GetMapping("/page")
-	public UserDTO page(String username) {
+	public UserDTO page(@ApiParam UserDTO userDto, String username) {
 		User u = user.findById(1);
 		System.out.println(u.toJson());
 		UserDTO result = new UserDTO();
 		BeanUtils.copyProperties(u, result);
-		return result;
+		return null;
+	}
+	
+	@ApiOperation("测试捕捉异常接口")
+	@GetMapping("error")
+	public String error() throws Exception {
+		throw new Exception("my test exception");
 	}
 }
