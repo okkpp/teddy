@@ -21,36 +21,34 @@ public class CodeGenerator {
         //生成service 的包名
         String servicePackage = "okkpp.service";
 
-        //生成model dao层
-        //JbootModelGenerator.run(modelPackage);
-        String baseModelPackage = modelPackage + ".base";
-
         String dtoPackage = "okkpp.dto";
         
-        String modelDir = PathKit.getWebRootPath() + "/src/main/java/" + modelPackage.replace(".", "/");
-        String baseModelDir = PathKit.getWebRootPath() + "/src/main/java/" + baseModelPackage.replace(".", "/");
-        String dtoDir = PathKit.getWebRootPath() + "/src/main/java/" + dtoPackage.replace(".", "/");
-        
-        System.out.println("start generate...");
-        System.out.println("generate dir:" + modelDir);
-
         //去掉表前缀
         MetaBuilder metaBuilder = CodeGenHelpler.createMetaBuilder();
         metaBuilder.setRemovedTableNamePrefixes("t_");
-        
         List<TableMeta> tableMetaList = metaBuilder.build();
         CodeGenHelpler.excludeTables(tableMetaList, null);
 
-        new MyBaseModelGenerator(baseModelPackage, baseModelDir).generate(tableMetaList);
-        new MyModelInfoGenerator(modelPackage, baseModelPackage, modelDir).generate(tableMetaList);
-        new MyDTOGenerator(dtoPackage, dtoDir).generate(tableMetaList);
+        genModel(modelPackage, tableMetaList);
+        genDto(dtoPackage, tableMetaList);
         
         //生成service
-        //JbootServiceGenerator.run(basePackage, modelPackage);
-        System.out.println("start generate...");
+        genService(modelPackage, servicePackage, tableMetaList);
 
-        new MyServiceInterfaceGenerator(servicePackage, modelPackage).generate(tableMetaList);
+    }
+    private static void genModel(String modelPackage, List<TableMeta> tableMetaList) {
+    	String baseModelPackage = modelPackage + ".base";
+    	String modelDir = PathKit.getWebRootPath() + "/src/main/java/" + modelPackage.replace(".", "/");
+        String baseModelDir = PathKit.getWebRootPath() + "/src/main/java/" + baseModelPackage.replace(".", "/");
+    	new MyBaseModelGenerator(baseModelPackage, baseModelDir).generate(tableMetaList);
+        new MyModelInfoGenerator(modelPackage, baseModelPackage, modelDir).generate(tableMetaList);
+    }
+    private static void genDto(String dtoPackage, List<TableMeta> tableMetaList) {
+    	String outputDir = PathKit.getWebRootPath() + "/src/main/java/" + dtoPackage.replace(".", "/");
+    	new MyDTOGenerator(dtoPackage, outputDir).generate(tableMetaList);
+    }
+    private static void genService(String modelPackage, String servicePackage, List<TableMeta> tableMetaList) {
+    	new MyServiceInterfaceGenerator(servicePackage, modelPackage).generate(tableMetaList);
         new MyServiceImplGenerator(servicePackage , modelPackage).generate(tableMetaList);
-
     }
 }
