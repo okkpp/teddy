@@ -19,6 +19,7 @@ public class ShiroConfig {
 		ShiroFilterFactoryBean shiroFilter = new ShiroFilterFactoryBean();
 		shiroFilter.setSecurityManager(securityManager());
 		shiroFilter.setLoginUrl("/swagger-ui.html");
+		shiroFilter.setUnauthorizedUrl("/swagger-ui.html");
 		
 		Map<String, String> filterChain = new LinkedHashMap<>();
 		filterChain.put("/user/logout", "logout");
@@ -46,21 +47,27 @@ public class ShiroConfig {
 	
 	@Bean
 	public MyShiroRealm shiroRealm() {
-		return new MyShiroRealm();
+		MyShiroRealm realm = new MyShiroRealm();
+		realm.setCredentialsMatcher(hashedCredentialsMatcher());
+		return realm;
 	}
 
     /**
      * 凭证匹配器
      * （由于我们的密码校验交给Shiro的SimpleAuthenticationInfo进行处理了
      * ）
-     *
+     * HashedCredentialsMatcher说明：
+     * 用户传入的token先经过shiroRealm的doGetAuthenticationInfo方法
+     * 此时token中的密码为明文。
+     * 再经由HashedCredentialsMatcher加密password与查询用户的结果password做对比。
+     * new SimpleHash("SHA-256", password, null, 1024).toHex();
      * @return
      */
     @Bean
     public HashedCredentialsMatcher hashedCredentialsMatcher() {
         HashedCredentialsMatcher hashedCredentialsMatcher = new HashedCredentialsMatcher();
-        hashedCredentialsMatcher.setHashAlgorithmName("md5");//散列算法:这里使用MD5算法;
-        hashedCredentialsMatcher.setHashIterations(2);//散列的次数，比如散列两次，相当于 md5(md5(""));
+        hashedCredentialsMatcher.setHashAlgorithmName("SHA-256");//散列算法:这里使用SHA-256算法;
+        hashedCredentialsMatcher.setHashIterations(1024);//散列的次数，比如散列两次，相当于 MD5(MD5(""));
         return hashedCredentialsMatcher;
     }
 }

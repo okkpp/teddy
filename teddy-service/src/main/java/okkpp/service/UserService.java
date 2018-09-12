@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface UserService  {
 
-	public User findLoginUser(String username, String password);
+	public User checkLoginUser(String username);
 	
     /**
      * find model by primary key

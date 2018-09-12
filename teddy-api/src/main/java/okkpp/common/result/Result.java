@@ -6,6 +6,9 @@ public class Result<T> {
 	private String msg;
 	private T data;
 	
+	public Result() {
+		this.code = 200;
+	};
 	public Result(T data) {
 		this(200, null, data);
 	}
@@ -16,10 +19,15 @@ public class Result<T> {
 		this(code, msg, null);
 	}
 	public Result(int code, String msg, T data) {
-		super();
 		this.code = code;
 		this.msg = msg;
 		this.data = data;
+	}
+	public static Result<String> success() {
+		return new Result<>("success");
+	}
+	public static Result<String> failed() {
+		return new Result<>(-200, "failed");
 	}
 	public int getCode() {
 		return code;

@@ -5,7 +5,11 @@ import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.LockedAccountException;
 import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.crypto.hash.SimpleHash;
 import org.apache.shiro.subject.Subject;
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -15,33 +19,54 @@ import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import okkpp.common.base.BaseController;
+import okkpp.common.result.Result;
+import okkpp.dto.UserDTO;
+import okkpp.model.User;
+import okkpp.service.UserService;
 
-@Api(description="用户登陆管理")
+@Api(description="用户管理")
 @RequestMapping("user")
 @RestController
 public class UserController extends BaseController {
 
+	@Autowired
+	UserService userService;
+	
 	@ApiOperation("登陆")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "username", paramType = "query", value = "用户名", required = true, dataType = "String"),
             @ApiImplicitParam(name = "password", paramType = "query", value = "密码", required = true, dataType = "String")
     })
 	@PostMapping("login")
-	public String login(UsernamePasswordToken token) {
+	public Result<String> login(UsernamePasswordToken token) {
 		Subject subject = SecurityUtils.getSubject();
-
+		
 		try {
 			subject.login(token);
-			return "登录成功";
+			return new Result<>("登录成功");
 		} catch (IncorrectCredentialsException e) {
-			return "密码错误";
+			return new Result<>("密码错误");
 		} catch (LockedAccountException e) {
-			return "登录失败，该用户已被冻结";
+			return new Result<>("登录失败，该用户已被冻结");
 		} catch (AuthenticationException e) {
-			return "该用户不存在";
+			return new Result<>("该用户不存在");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return "error";
+		return new Result<>("登录错误");
+	}
+	
+	@ApiOperation("注册")
+	@GetMapping("register")
+	public Result<String> register(UserDTO user){
+		user.setPassword(new SimpleHash("SHA-256", user.getPassword(), null, 1024).toHex());
+		User model = new User();
+		BeanUtils.copyProperties(user, model);
+		boolean result = userService.save(model);
+		if(result) {
+			return Result.success();
+		}else {
+			return Result.failed();
+		}
 	}
 }
