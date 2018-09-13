@@ -69,4 +69,16 @@ public class UserController extends BaseController {
 			return Result.failed();
 		}
 	}
+	
+	@ApiOperation("退出登录")
+	@GetMapping("logout")
+	public Result<String> logout(){
+		return new Result<>("退出登录");
+	}
+	
+	@ApiOperation("未授权")
+	@GetMapping("unauthorized")
+	public Result<String> unauthorized(){
+		return new Result<>("没有权限");
+	}
 }

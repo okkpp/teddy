@@ -8,6 +8,7 @@ public class PagedResult<T> extends Result<T> {
 	
 	public PagedResult(T data) {
 		super(data);
+		super.setCode(400);
 	}
 
 	public int getPageNo() {

@@ -10,7 +10,7 @@ public class Result<T> {
 		this.code = 200;
 	};
 	public Result(T data) {
-		this(200, null, data);
+		this(300, null, data);
 	}
 	public Result(String msg) {
 		this(200, msg);

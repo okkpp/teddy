@@ -1,5 +1,8 @@
 package okkpp.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,6 +15,8 @@ import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import okkpp.common.base.BaseController;
+import okkpp.common.result.PagedResult;
+import okkpp.common.result.Result;
 import okkpp.dto.UserDTO;
 import okkpp.model.User;
 import okkpp.service.TestService;
@@ -32,17 +37,26 @@ public class TestController extends BaseController {
             @ApiImplicitParam(name = "username", paramType = "query", value = "用户名", required = true, dataType = "String")
     })
 	@GetMapping("/page")
-	public UserDTO page(@ApiParam UserDTO userDto, String username) {
+	public Result<UserDTO> page(@ApiParam UserDTO userDto, String username) {
 		User u = user.findById(1);
 		System.out.println(u.toJson());
 		UserDTO result = new UserDTO();
 		BeanUtils.copyProperties(u, result);
-		return null;
+		return new Result<UserDTO>(result);
+	}
+	
+	@ApiOperation("测试分页结果集")
+	@GetMapping("paged")
+	public PagedResult<List<UserDTO>> paged() {
+		List<UserDTO> list = new ArrayList<UserDTO>();
+		list.add(new UserDTO());
+		list.add(new UserDTO());
+		return new PagedResult<>(list);
 	}
 	
 	@ApiOperation("测试捕捉异常接口")
 	@GetMapping("error")
-	public String error() throws Exception {
+	public Result<String> error() throws Exception {
 		throw new Exception("my test exception");
 	}
 }

@@ -20,7 +20,6 @@ public class MyShiroRealm extends AuthorizingRealm{
 	
 	@Override
 	protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection arg0) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
