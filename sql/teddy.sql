@@ -22,7 +22,41 @@ CREATE TABLE IF NOT EXISTS `t_base` (
   `created` datetime DEFAULT NULL COMMENT '创建日期',
   `enable` int(11) DEFAULT '1' COMMENT '是否启用',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=COMPACT COMMENT='用户管理';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=COMPACT COMMENT='表单模板';
+
+-- 数据导出被取消选择。
+
+
+-- 导出  表 teddy.t_role 结构
+CREATE TABLE IF NOT EXISTS `t_role` (
+  `id` bigint(20) NOT NULL COMMENT 'id',
+  `role` varchar(50) NOT NULL COMMENT '角色',
+  `created` datetime DEFAULT NULL COMMENT '创建日期',
+  `enable` int(11) DEFAULT '1' COMMENT '是否启用'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=COMPACT COMMENT='角色管理';
+
+-- 数据导出被取消选择。
+
+
+-- 导出  表 teddy.t_role_url 结构
+CREATE TABLE IF NOT EXISTS `t_role_url` (
+  `id` bigint(20) NOT NULL COMMENT 'id',
+  `role_id` bigint(20) NOT NULL COMMENT '角色id',
+  `url_id` bigint(20) NOT NULL COMMENT '资源id',
+  `created` datetime DEFAULT NULL COMMENT '创建日期',
+  `enable` int(11) DEFAULT '1' COMMENT '是否启用'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=COMPACT COMMENT='角色-资源';
+
+-- 数据导出被取消选择。
+
+
+-- 导出  表 teddy.t_url 结构
+CREATE TABLE IF NOT EXISTS `t_url` (
+  `id` bigint(20) NOT NULL COMMENT 'id',
+  `url` varchar(50) NOT NULL COMMENT 'API-URL',
+  `created` datetime DEFAULT NULL COMMENT '创建日期',
+  `enable` int(11) DEFAULT '1' COMMENT '是否启用'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=COMPACT COMMENT='资源管理';
 
 -- 数据导出被取消选择。
 
@@ -42,6 +76,18 @@ CREATE TABLE IF NOT EXISTS `t_user` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `username` (`username`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='用户管理';
+
+-- 数据导出被取消选择。
+
+
+-- 导出  表 teddy.t_user_role 结构
+CREATE TABLE IF NOT EXISTS `t_user_role` (
+  `id` bigint(20) NOT NULL COMMENT 'id',
+  `user_id` bigint(20) NOT NULL COMMENT '用户id',
+  `role_id` bigint(20) NOT NULL COMMENT '角色id',
+  `created` datetime DEFAULT NULL COMMENT '创建日期',
+  `enable` int(11) DEFAULT '1' COMMENT '是否启用'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=COMPACT COMMENT='用户-角色';
 
 -- 数据导出被取消选择。
 
