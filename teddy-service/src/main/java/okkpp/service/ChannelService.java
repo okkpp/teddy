@@ -1,32 +1,26 @@
 package okkpp.service;
 
-import okkpp.model.User;
+import okkpp.model.Channel;
 
 import java.util.List;
 
-import com.jfinal.plugin.activerecord.Record;
+public interface ChannelService  {
 
-public interface UserService  {
-
-	public List<Record> findUserUrl(Long userId);
-	
-	public User checkLoginUser(String username);
-	
     /**
      * find model by primary key
      *
      * @param id
      * @return
      */
-    public User findById(Object id);
+    public Channel findById(Object id);
 
 
     /**
      * find all model
      *
-     * @return all <User
+     * @return all <Channel
      */
-    public List<User> findAll();
+    public List<Channel> findAll();
 
 
     /**
@@ -44,7 +38,7 @@ public interface UserService  {
      * @param model
      * @return
      */
-    public boolean delete(User model);
+    public boolean delete(Channel model);
 
 
     /**
@@ -53,7 +47,7 @@ public interface UserService  {
      * @param model
      * @return
      */
-    public boolean save(User model);
+    public boolean save(Channel model);
 
 
     /**
@@ -62,7 +56,7 @@ public interface UserService  {
      * @param model
      * @return if save or update success
      */
-    public boolean saveOrUpdate(User model);
+    public boolean saveOrUpdate(Channel model);
 
 
     /**
@@ -71,7 +65,7 @@ public interface UserService  {
      * @param model
      * @return
      */
-    public boolean update(User model);
+    public boolean update(Channel model);
 
 
 }

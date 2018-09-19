@@ -19,7 +19,6 @@ import okkpp.common.result.PagedResult;
 import okkpp.common.result.Result;
 import okkpp.dto.UserDTO;
 import okkpp.model.User;
-import okkpp.service.TestService;
 import okkpp.service.UserService;
 
 @Api(value="测试API")
@@ -27,8 +26,6 @@ import okkpp.service.UserService;
 @RestController
 public class TestController extends BaseController {
 
-	@Autowired
-	TestService service;
 	@Autowired
 	UserService user;
 	

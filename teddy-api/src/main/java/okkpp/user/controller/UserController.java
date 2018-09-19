@@ -56,6 +56,15 @@ public class UserController extends BaseController {
 		return new Result<>("登录错误");
 	}
 	
+	@ApiOperation("登录信息")
+	@GetMapping("currentUser")
+	public Result<UserDTO> currentUser(){
+		Subject subject = SecurityUtils.getSubject();
+		UserDTO user = new UserDTO();
+		BeanUtils.copyProperties((User) subject.getPrincipal(), user);
+		return new Result<UserDTO>(user);
+	}
+	
 	@ApiOperation("注册")
 	@GetMapping("register")
 	public Result<String> register(UserDTO user){
@@ -73,6 +82,8 @@ public class UserController extends BaseController {
 	@ApiOperation("退出登录")
 	@GetMapping("logout")
 	public Result<String> logout(){
+		Subject subject = SecurityUtils.getSubject();
+		subject.logout();
 		return new Result<>("退出登录");
 	}
 	

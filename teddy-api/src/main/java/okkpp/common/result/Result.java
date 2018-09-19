@@ -1,5 +1,12 @@
 package okkpp.common.result;
 
+/**
+ * 使用泛型是为了方便swagger解析结果
+ * 
+ * @author okkpp
+ *
+ * @param <T>
+ */
 public class Result<T> {
 
 	private int code;
@@ -7,13 +14,13 @@ public class Result<T> {
 	private T data;
 	
 	public Result() {
-		this.code = 200;
+		this.code = Response.MSG.getCode();
 	};
 	public Result(T data) {
-		this(300, null, data);
+		this(Response.DATA.getCode(), null, data);
 	}
 	public Result(String msg) {
-		this(200, msg);
+		this(Response.MSG.getCode(), msg);
 	}
 	public Result(int code, String msg) {
 		this(code, msg, null);
@@ -27,7 +34,7 @@ public class Result<T> {
 		return new Result<>("success");
 	}
 	public static Result<String> failed() {
-		return new Result<>(-200, "failed");
+		return new Result<>(Response.FAILED.getCode(), "failed");
 	}
 	public int getCode() {
 		return code;
@@ -50,5 +57,18 @@ public class Result<T> {
 	@Override
 	public String toString() {
 		return "Result [code=" + code + ", msg=" + msg + ", data=" + data + "]";
+	}
+}
+enum Response {
+	FAILED(-200),MSG(200),DATA(300),PAGED(400);
+	private int code;
+	private Response(int code) {
+		this.code = code;
+	}
+	public int getCode() {
+		return code;
+	}
+	public void setCode(int code) {
+		this.code = code;
 	}
 }

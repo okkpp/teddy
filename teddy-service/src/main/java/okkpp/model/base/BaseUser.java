@@ -54,6 +54,22 @@ public abstract class BaseUser<M extends BaseUser<M>> extends JbootModel<M> impl
 		return getStr("username");
 	}
 
+	public void setPhone(java.lang.String phone) {
+		set("phone", phone);
+	}
+	
+	public java.lang.String getPhone() {
+		return getStr("phone");
+	}
+
+	public void setEmail(java.lang.String email) {
+		set("email", email);
+	}
+	
+	public java.lang.String getEmail() {
+		return getStr("email");
+	}
+
 	public void setMood(java.lang.String mood) {
 		set("mood", mood);
 	}

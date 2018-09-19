@@ -1,0 +1,5 @@
+
+teddy-api/target/*
+teddy-service/target/
+
+teddy-api/target/classes/*

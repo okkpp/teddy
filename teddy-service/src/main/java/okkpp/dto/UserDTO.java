@@ -12,6 +12,10 @@ public class UserDTO implements Serializable {
 	
 	private java.lang.String username;
 	
+	private java.lang.String phone;
+	
+	private java.lang.String email;
+	
 	private java.lang.String mood;
 	
 	private java.lang.Integer sex;
@@ -44,6 +48,22 @@ public class UserDTO implements Serializable {
 	
 	public java.lang.String getUsername() {
 		return this.username;
+	}
+
+	public void setPhone(java.lang.String phone) {
+		this.phone = phone;
+	}
+	
+	public java.lang.String getPhone() {
+		return this.phone;
+	}
+
+	public void setEmail(java.lang.String email) {
+		this.email = email;
+	}
+	
+	public java.lang.String getEmail() {
+		return this.email;
 	}
 
 	public void setMood(java.lang.String mood) {
@@ -84,12 +104,6 @@ public class UserDTO implements Serializable {
 	
 	public java.lang.Integer getEnable() {
 		return this.enable;
-	}
-
-	@Override
-	public String toString() {
-		return "UserDTO [id=" + id + ", password=" + password + ", username=" + username + ", mood=" + mood + ", sex="
-				+ sex + ", birthday=" + birthday + ", created=" + created + ", enable=" + enable + "]";
 	}
 
 }

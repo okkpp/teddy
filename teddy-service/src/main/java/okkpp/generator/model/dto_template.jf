@@ -19,7 +19,7 @@ public class #(tableMeta.baseModelName) implements Serializable {
 	
 	#set(getterOfModel = getterTypeMap.get(cm.javaType))
 	public #(cm.javaType) get#(firstCharToUpperCase(cm.attrName))() {
-		return this.#(cm.name);
+		return this.#(argName);
 	}
 
 #end
