@@ -1,5 +1,3 @@
 
-teddy-api/target/*
-teddy-service/target/
-
-teddy-api/target/classes/*
+teddy-api/target
+teddy-service/target

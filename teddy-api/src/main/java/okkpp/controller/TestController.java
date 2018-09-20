@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -34,6 +35,7 @@ public class TestController extends BaseController {
             @ApiImplicitParam(name = "username", paramType = "query", value = "用户名", required = true, dataType = "String")
     })
 	@GetMapping("/page")
+	@Cacheable("data")
 	public Result<UserDTO> page(@ApiParam UserDTO userDto, String username) {
 		User u = user.findById(1);
 		System.out.println(u.toJson());

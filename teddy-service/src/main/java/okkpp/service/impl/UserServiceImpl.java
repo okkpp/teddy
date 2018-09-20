@@ -9,6 +9,7 @@ import java.util.List;
 
 import javax.inject.Singleton;
 
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import com.jfinal.plugin.activerecord.Db;
@@ -28,6 +29,7 @@ public class UserServiceImpl extends JbootServiceBase<User> implements UserServi
 	}
 
 	@Override
+	@Cacheable("data")
 	public List<Record> findUserUrl(Long userId) {
 		List<Record> list = Db.find("select temp.* from t_role left join " 
 				+ "(select b.user_id,a.* from "

@@ -6,7 +6,6 @@ import java.util.Map;
 import javax.servlet.Filter;
 
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
-import org.apache.shiro.cache.ehcache.EhCacheManager;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.springframework.context.annotation.Bean;
@@ -66,19 +65,12 @@ public class ShiroConfig {
 	@Bean
 	public MyShiroRealm shiroRealm() {
 		MyShiroRealm realm = new MyShiroRealm();
-//		realm.setCacheManager(getEhCacheManager());
 		realm.setCredentialsMatcher(hashedCredentialsMatcher());
 		//没有配置权限缓存,所以关闭授权缓存域
 		realm.setAuthorizationCachingEnabled(false);
 		return realm;
 	}
 
-	@Bean
-	public EhCacheManager getEhCacheManager() {
-		EhCacheManager ehCacheManager = new EhCacheManager();
-		ehCacheManager.setCacheManagerConfigFile("classpath:ehcache-shiro.xml");
-		return ehCacheManager;
-	}
     /**
      * 凭证匹配器
      * （由于我们的密码校验交给Shiro的SimpleAuthenticationInfo进行处理了

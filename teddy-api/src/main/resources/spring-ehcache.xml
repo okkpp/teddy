@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ehcache updateCheck="false" name="springEhCache">
+
+    <defaultCache
+            maxElementsInMemory="10000"
+            eternal="false"
+            timeToIdleSeconds="120"
+            timeToLiveSeconds="120"
+            overflowToDisk="false"
+            diskPersistent="false"
+            diskExpiryThreadIntervalSeconds="120"
+    />
+    <cache
+            name="data"
+            eternal="false"
+            maxElementsInMemory="200"
+            overflowToDisk="false"
+            diskPersistent="false"
+            timeToIdleSeconds="0"
+            timeToLiveSeconds="60"
+            memoryStoreEvictionPolicy="LRU"
+	/>
+</ehcache>
