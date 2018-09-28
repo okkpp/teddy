@@ -2,6 +2,7 @@ package okkpp.service.impl;
 
 import io.jboot.aop.annotation.Bean;
 import okkpp.service.UserService;
+import okkpp.constants.EhCacheConstants;
 import okkpp.model.User;
 import io.jboot.service.JbootServiceBase;
 
@@ -28,7 +29,7 @@ public class UserServiceImpl extends JbootServiceBase<User> implements UserServi
 	}
 
 	@Override
-	@Cacheable("data")
+	@Cacheable(EhCacheConstants.DEFAULT_NAME)
 	public List<String> findUserUrl(Long userId) {
 		List<Record> list = Db.find("select temp.* from t_role left join "
 				+ "(select b.user_id,a.* from "
@@ -48,7 +49,7 @@ public class UserServiceImpl extends JbootServiceBase<User> implements UserServi
 	}
 
 	@Override
-	@Cacheable("data")
+	@Cacheable(EhCacheConstants.DEFAULT_NAME)
 	public List<String> findUserUrl(String username) {
 		User user = getUserByName(username);
 		if(null==user) {

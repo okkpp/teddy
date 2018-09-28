@@ -6,13 +6,14 @@ import org.springframework.stereotype.Component;
 import net.sf.ehcache.Cache;
 import net.sf.ehcache.CacheManager;
 import net.sf.ehcache.Element;
+import okkpp.constants.EhCacheConstants;
 
 @Component
 public class EhcacheUtil {
 
 	@Autowired
 	private CacheManager cacheManager;
-	private static String defaultCache = "data";
+	private static String defaultCache = EhCacheConstants.DEFAULT_NAME;
 
 	public boolean isConfiged() {
 		if (null == cacheManager) {
