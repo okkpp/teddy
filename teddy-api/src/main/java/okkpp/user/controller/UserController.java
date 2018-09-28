@@ -1,5 +1,10 @@
 package okkpp.user.controller;
 
+import java.util.UUID;
+
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
+
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.IncorrectCredentialsException;
@@ -20,6 +25,7 @@ import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import okkpp.common.base.BaseController;
 import okkpp.common.result.Result;
+import okkpp.common.utils.EhcacheUtil;
 import okkpp.dto.UserDTO;
 import okkpp.model.User;
 import okkpp.service.UserService;
@@ -31,6 +37,8 @@ public class UserController extends BaseController {
 
 	@Autowired
 	UserService userService;
+	@Autowired
+	EhcacheUtil ehcacheUtil;
 	
 	@ApiOperation("登陆")
     @ApiImplicitParams({
@@ -38,11 +46,14 @@ public class UserController extends BaseController {
             @ApiImplicitParam(name = "password", paramType = "query", value = "密码", required = true, dataType = "String")
     })
 	@PostMapping("login")
-	public Result<String> login(UsernamePasswordToken token) {
+	public Result<String> login(HttpServletResponse response, UsernamePasswordToken token) {
 		Subject subject = SecurityUtils.getSubject();
 		
 		try {
 			subject.login(token);
+			UUID uuid = UUID.randomUUID();
+			ehcacheUtil.put("TOKEN_"+uuid.toString(), token);
+			response.addCookie(new Cookie("token", uuid.toString()));
 			return new Result<>("登录成功");
 		} catch (IncorrectCredentialsException e) {
 			return new Result<>("密码错误");

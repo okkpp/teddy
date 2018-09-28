@@ -52,7 +52,6 @@ public class ShiroConfig {
 	 */
 	public MyTokenFilter tokenFilter() {
 		MyTokenFilter myTokenFilter = new MyTokenFilter();
-		myTokenFilter.init();
 		return myTokenFilter;
 	}
 	@Bean

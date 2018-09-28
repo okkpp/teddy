@@ -9,10 +9,10 @@ import okkpp.common.result.Result;
 public class BaseController {
 
 	protected Result<String> successMsg(String msg){
-		return new Result<>(msg);
+		return Result.success(msg);
 	}
 	protected Result<String> faildMsg(String msg){
-		return new Result<>(msg);
+		return Result.failed(msg);
 	}
 	protected <T> Result<T> successData(T data){
 		return new Result<>(data);
