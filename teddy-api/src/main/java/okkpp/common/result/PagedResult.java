@@ -4,8 +4,15 @@ public class PagedResult<T> extends Result<T> {
 
 	private int pageNo;
 	private int pageSize;
-	private int total;
+	private int totalPage;
 	
+	
+	public PagedResult(T data, int pageNo, int pageSize, int totalPage) {
+		this(data);
+		this.pageNo = pageNo;
+		this.pageSize = pageSize;
+		this.totalPage = totalPage;
+	}
 	public PagedResult(T data) {
 		super(data);
 		super.setCode(Response.PAGED.getCode());
@@ -27,12 +34,12 @@ public class PagedResult<T> extends Result<T> {
 		this.pageSize = pageSize;
 	}
 
-	public int getTotal() {
-		return total;
+	public int getTotalPage() {
+		return totalPage;
 	}
 
-	public void setTotal(int total) {
-		this.total = total;
+	public void setTotalPage(int totalPage) {
+		this.totalPage = totalPage;
 	}
 
 }

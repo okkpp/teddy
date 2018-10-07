@@ -11,8 +11,8 @@ import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import okkpp.common.shiro.MyAuthorizationFilter;
 import okkpp.common.shiro.MyShiroRealm;
+import okkpp.common.shiro.MyTokenFilter;
 
 @Configuration
 public class ShiroConfig {
@@ -35,11 +35,12 @@ public class ShiroConfig {
 		filterChain.put("/v2/**", "anon");
 		
 //		filterChain.put("/**", "anon");
-		filterChain.put("/**", "authc,urlPerms");
+		filterChain.put("/**", "token");
 		shiroFilter.setFilterChainDefinitionMap(filterChain);
 		
 		Map<String, Filter> filters = new LinkedHashMap<>();
-		filters.put("urlPerms", permFilter());
+//		filters.put("urlPerms", permFilter());
+		filters.put("token", tokenFilter());
 		shiroFilter.setFilters(filters);
 		return shiroFilter;
 	}
@@ -49,10 +50,10 @@ public class ShiroConfig {
 	 * http://www.hillfly.com/2017/179.html
 	 * @return
 	 */
-	public MyAuthorizationFilter permFilter() {
-		return new MyAuthorizationFilter();
+	public MyTokenFilter tokenFilter() {
+		MyTokenFilter myTokenFilter = new MyTokenFilter();
+		return myTokenFilter;
 	}
-	
 	@Bean
 	public DefaultWebSecurityManager securityManager() {
 		DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();

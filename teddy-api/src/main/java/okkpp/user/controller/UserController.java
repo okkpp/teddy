@@ -1,5 +1,10 @@
 package okkpp.user.controller;
 
+import java.util.UUID;
+
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
+
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.IncorrectCredentialsException;
@@ -20,29 +25,35 @@ import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import okkpp.common.base.BaseController;
 import okkpp.common.result.Result;
+import okkpp.common.utils.EhcacheUtil;
+import okkpp.constants.EhCacheConstants;
 import okkpp.dto.UserDTO;
 import okkpp.model.User;
 import okkpp.service.UserService;
 
-@Api(description="用户管理")
+@Api(description = "用户管理")
 @RequestMapping("user")
 @RestController
 public class UserController extends BaseController {
 
 	@Autowired
 	UserService userService;
-	
+	@Autowired
+	EhcacheUtil ehcacheUtil;
+
 	@ApiOperation("登陆")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "username", paramType = "query", value = "用户名", required = true, dataType = "String"),
-            @ApiImplicitParam(name = "password", paramType = "query", value = "密码", required = true, dataType = "String")
-    })
+	@ApiImplicitParams({
+			@ApiImplicitParam(name = "username", paramType = "query", value = "用户名", required = true, dataType = "String"),
+			@ApiImplicitParam(name = "password", paramType = "query", value = "密码", required = true, dataType = "String") })
 	@PostMapping("login")
-	public Result<String> login(UsernamePasswordToken token) {
+	public Result<String> login(HttpServletResponse response, UsernamePasswordToken token) {
 		Subject subject = SecurityUtils.getSubject();
-		
+
 		try {
 			subject.login(token);
+			UUID uuid = UUID.randomUUID();
+			ehcacheUtil.put(EhCacheConstants.TOKEN_PREFIX + uuid.toString(), token);
+			response.addCookie(new Cookie("token", uuid.toString()));
 			return new Result<>("登录成功");
 		} catch (IncorrectCredentialsException e) {
 			return new Result<>("密码错误");
@@ -55,41 +66,41 @@ public class UserController extends BaseController {
 		}
 		return new Result<>("登录错误");
 	}
-	
+
 	@ApiOperation("登录信息")
 	@GetMapping("currentUser")
-	public Result<UserDTO> currentUser(){
+	public Result<UserDTO> currentUser() {
 		Subject subject = SecurityUtils.getSubject();
 		UserDTO user = new UserDTO();
 		BeanUtils.copyProperties((User) subject.getPrincipal(), user);
 		return new Result<UserDTO>(user);
 	}
-	
+
 	@ApiOperation("注册")
 	@GetMapping("register")
-	public Result<String> register(UserDTO user){
+	public Result<String> register(UserDTO user) {
 		user.setPassword(new SimpleHash("SHA-256", user.getPassword(), null, 1024).toHex());
 		User model = new User();
 		BeanUtils.copyProperties(user, model);
 		boolean result = userService.save(model);
-		if(result) {
+		if (result) {
 			return Result.success();
-		}else {
+		} else {
 			return Result.failed();
 		}
 	}
-	
+
 	@ApiOperation("退出登录")
 	@GetMapping("logout")
-	public Result<String> logout(){
+	public Result<String> logout() {
 		Subject subject = SecurityUtils.getSubject();
 		subject.logout();
 		return new Result<>("退出登录");
 	}
-	
+
 	@ApiOperation("未授权")
 	@GetMapping("unauthorized")
-	public Result<String> unauthorized(){
+	public Result<String> unauthorized() {
 		return new Result<>("没有权限");
 	}
 }

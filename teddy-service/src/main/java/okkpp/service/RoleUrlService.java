@@ -6,6 +6,8 @@ import java.util.List;
 
 public interface RoleUrlService  {
 
+	public List<String> getPublicRole();
+	
     /**
      * find model by primary key
      *

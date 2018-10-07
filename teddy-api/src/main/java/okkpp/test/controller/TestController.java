@@ -1,4 +1,4 @@
-package okkpp.controller;
+package okkpp.test.controller;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,7 +50,7 @@ public class TestController extends BaseController {
 		List<UserDTO> list = new ArrayList<UserDTO>();
 		list.add(new UserDTO());
 		list.add(new UserDTO());
-		return new PagedResult<>(list);
+		return new PagedResult<>(list, 1, 10, 1);
 	}
 	
 	@ApiOperation("测试捕捉异常接口")

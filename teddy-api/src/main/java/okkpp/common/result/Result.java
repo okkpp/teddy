@@ -31,10 +31,19 @@ public class Result<T> {
 		this.data = data;
 	}
 	public static Result<String> success() {
-		return new Result<>("success");
+		return success("success");
+	}
+	public static Result<String> success(String msg) {
+		return new Result<>(msg);
 	}
 	public static Result<String> failed() {
-		return new Result<>(Response.FAILED.getCode(), "failed");
+		return failed("failed");
+	}
+	public static Result<String> failed(String msg) {
+		return new Result<>(Response.FAILED.getCode(), msg);
+	}
+	public static Result<String> notLogin() {
+		return new Result<>(Response.FAILED.getCode(), "not login");
 	}
 	public int getCode() {
 		return code;

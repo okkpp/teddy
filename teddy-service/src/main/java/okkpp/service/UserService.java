@@ -4,13 +4,12 @@ import okkpp.model.User;
 
 import java.util.List;
 
-import com.jfinal.plugin.activerecord.Record;
-
 public interface UserService  {
 
-	public List<Record> findUserUrl(Long userId);
+	public List<String> findUserUrl(Long userId);
+	public List<String> findUserUrl(String username);
 	
-	public User checkLoginUser(String username);
+	public User getUserByName(String username);
 	
     /**
      * find model by primary key

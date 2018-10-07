@@ -24,7 +24,10 @@ CREATE TABLE IF NOT EXISTS `t_base` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=COMPACT COMMENT='表单模板';
 
--- 数据导出被取消选择。
+-- 正在导出表  teddy.t_base 的数据：~0 rows (大约)
+DELETE FROM `t_base`;
+/*!40000 ALTER TABLE `t_base` DISABLE KEYS */;
+/*!40000 ALTER TABLE `t_base` ENABLE KEYS */;
 
 
 -- 导出  表 teddy.t_channel 结构
@@ -36,7 +39,10 @@ CREATE TABLE IF NOT EXISTS `t_channel` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=COMPACT COMMENT='版块';
 
--- 数据导出被取消选择。
+-- 正在导出表  teddy.t_channel 的数据：~0 rows (大约)
+DELETE FROM `t_channel`;
+/*!40000 ALTER TABLE `t_channel` DISABLE KEYS */;
+/*!40000 ALTER TABLE `t_channel` ENABLE KEYS */;
 
 
 -- 导出  表 teddy.t_post 结构
@@ -55,7 +61,10 @@ CREATE TABLE IF NOT EXISTS `t_post` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=COMPACT COMMENT='推送';
 
--- 数据导出被取消选择。
+-- 正在导出表  teddy.t_post 的数据：~0 rows (大约)
+DELETE FROM `t_post`;
+/*!40000 ALTER TABLE `t_post` DISABLE KEYS */;
+/*!40000 ALTER TABLE `t_post` ENABLE KEYS */;
 
 
 -- 导出  表 teddy.t_post_content 结构
@@ -68,7 +77,10 @@ CREATE TABLE IF NOT EXISTS `t_post_content` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=COMPACT COMMENT='推送内容';
 
--- 数据导出被取消选择。
+-- 正在导出表  teddy.t_post_content 的数据：~0 rows (大约)
+DELETE FROM `t_post_content`;
+/*!40000 ALTER TABLE `t_post_content` DISABLE KEYS */;
+/*!40000 ALTER TABLE `t_post_content` ENABLE KEYS */;
 
 
 -- 导出  表 teddy.t_post_favor 结构
@@ -81,7 +93,10 @@ CREATE TABLE IF NOT EXISTS `t_post_favor` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=COMPACT COMMENT='点赞 收藏 喜欢';
 
--- 数据导出被取消选择。
+-- 正在导出表  teddy.t_post_favor 的数据：~0 rows (大约)
+DELETE FROM `t_post_favor`;
+/*!40000 ALTER TABLE `t_post_favor` DISABLE KEYS */;
+/*!40000 ALTER TABLE `t_post_favor` ENABLE KEYS */;
 
 
 -- 导出  表 teddy.t_role 结构
@@ -91,9 +106,15 @@ CREATE TABLE IF NOT EXISTS `t_role` (
   `created` datetime DEFAULT NULL COMMENT '创建日期',
   `enable` int(11) DEFAULT '1' COMMENT '是否启用',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=COMPACT COMMENT='角色管理';
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 ROW_FORMAT=COMPACT COMMENT='角色管理';
 
--- 数据导出被取消选择。
+-- 正在导出表  teddy.t_role 的数据：~0 rows (大约)
+DELETE FROM `t_role`;
+/*!40000 ALTER TABLE `t_role` DISABLE KEYS */;
+INSERT INTO `t_role` (`id`, `role`, `created`, `enable`) VALUES
+	(1, '管理员', '2018-09-14 09:35:47', 1),
+	(2, '普通用户', '2018-09-14 09:40:18', 1);
+/*!40000 ALTER TABLE `t_role` ENABLE KEYS */;
 
 
 -- 导出  表 teddy.t_role_url 结构
@@ -104,9 +125,17 @@ CREATE TABLE IF NOT EXISTS `t_role_url` (
   `created` datetime DEFAULT NULL COMMENT '创建日期',
   `enable` int(11) DEFAULT '1' COMMENT '是否启用',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=COMPACT COMMENT='角色-资源';
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 ROW_FORMAT=COMPACT COMMENT='角色-资源';
 
--- 数据导出被取消选择。
+-- 正在导出表  teddy.t_role_url 的数据：~2 rows (大约)
+DELETE FROM `t_role_url`;
+/*!40000 ALTER TABLE `t_role_url` DISABLE KEYS */;
+INSERT INTO `t_role_url` (`id`, `role_id`, `url_id`, `created`, `enable`) VALUES
+	(1, 1, 1, '2018-09-14 09:40:52', 1),
+	(2, 1, 2, '2018-09-14 09:40:53', 1),
+	(3, 2, 1, '2018-09-14 09:40:54', 0),
+	(4, 2, 2, '2018-09-19 16:30:17', 0);
+/*!40000 ALTER TABLE `t_role_url` ENABLE KEYS */;
 
 
 -- 导出  表 teddy.t_url 结构
@@ -116,9 +145,15 @@ CREATE TABLE IF NOT EXISTS `t_url` (
   `created` datetime DEFAULT NULL COMMENT '创建日期',
   `enable` int(11) DEFAULT '1' COMMENT '是否启用',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=COMPACT COMMENT='资源管理';
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 ROW_FORMAT=COMPACT COMMENT='资源管理';
 
--- 数据导出被取消选择。
+-- 正在导出表  teddy.t_url 的数据：~2 rows (大约)
+DELETE FROM `t_url`;
+/*!40000 ALTER TABLE `t_url` DISABLE KEYS */;
+INSERT INTO `t_url` (`id`, `url`, `created`, `enable`) VALUES
+	(1, '/user/**', '2018-09-14 09:39:11', 1),
+	(2, '/**', '2018-09-14 09:39:44', 1);
+/*!40000 ALTER TABLE `t_url` ENABLE KEYS */;
 
 
 -- 导出  表 teddy.t_user 结构
@@ -135,9 +170,15 @@ CREATE TABLE IF NOT EXISTS `t_user` (
   `enable` int(11) DEFAULT '1' COMMENT '是否启用',
   PRIMARY KEY (`id`),
   UNIQUE KEY `username` (`username`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='用户管理';
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COMMENT='用户管理';
 
--- 数据导出被取消选择。
+-- 正在导出表  teddy.t_user 的数据：~2 rows (大约)
+DELETE FROM `t_user`;
+/*!40000 ALTER TABLE `t_user` DISABLE KEYS */;
+INSERT INTO `t_user` (`id`, `password`, `username`, `phone`, `email`, `mood`, `sex`, `birthday`, `created`, `enable`) VALUES
+	(1, '22935a8ea24e04937cfbd7c00fe6cccc864cc54e9b0c2cba10dd43a7aa7aabec', 'okkpp', NULL, NULL, 'man age like wine', 0, '2018-09-11 13:18:08', '2018-09-11 13:18:09', 1),
+	(2, 'be923516c501cbb09114b0e18d13efbc084b426aa7e116fd2bd322f4230f73e2', 'okkpp@qq.com', NULL, NULL, 'wind 321', 1, NULL, '2018-09-12 11:36:22', 1);
+/*!40000 ALTER TABLE `t_user` ENABLE KEYS */;
 
 
 -- 导出  表 teddy.t_user_role 结构
@@ -148,9 +189,15 @@ CREATE TABLE IF NOT EXISTS `t_user_role` (
   `created` datetime DEFAULT NULL COMMENT '创建日期',
   `enable` int(11) DEFAULT '1' COMMENT '是否启用',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=COMPACT COMMENT='用户-角色';
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 ROW_FORMAT=COMPACT COMMENT='用户-角色';
 
--- 数据导出被取消选择。
+-- 正在导出表  teddy.t_user_role 的数据：~2 rows (大约)
+DELETE FROM `t_user_role`;
+/*!40000 ALTER TABLE `t_user_role` DISABLE KEYS */;
+INSERT INTO `t_user_role` (`id`, `user_id`, `role_id`, `created`, `enable`) VALUES
+	(1, 1, 1, '2018-09-14 15:00:39', 1),
+	(2, 2, 2, '2018-09-14 15:02:39', 1);
+/*!40000 ALTER TABLE `t_user_role` ENABLE KEYS */;
 
 
 -- 导出  表 teddy.t_wallet 结构
@@ -163,7 +210,10 @@ CREATE TABLE IF NOT EXISTS `t_wallet` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- 数据导出被取消选择。
+-- 正在导出表  teddy.t_wallet 的数据：~0 rows (大约)
+DELETE FROM `t_wallet`;
+/*!40000 ALTER TABLE `t_wallet` DISABLE KEYS */;
+/*!40000 ALTER TABLE `t_wallet` ENABLE KEYS */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
