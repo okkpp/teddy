@@ -24,8 +24,7 @@ public class UserServiceImpl extends JbootServiceBase<User> implements UserServi
 
 	@Override
 	public User getUserByName(String username) {
-		User user = DAO.findFirst("select * from t_user where username = ? ", username);
-		return user;
+		return DAO.findFirst("select * from t_user where username = ? ", username);
 	}
 
 	@Override

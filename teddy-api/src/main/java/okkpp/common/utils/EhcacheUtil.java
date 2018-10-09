@@ -16,11 +16,7 @@ public class EhcacheUtil {
 	private static String defaultCache = EhCacheConstants.DEFAULT_NAME;
 
 	public boolean isConfiged() {
-		if (null == cacheManager) {
-			return false;
-		} else {
-			return true;
-		}
+		return null != cacheManager;
 	}
 
 	public void put(String key, Object value) {

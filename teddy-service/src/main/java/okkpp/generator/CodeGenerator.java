@@ -15,7 +15,7 @@ import okkpp.generator.service.MyServiceInterfaceGenerator;
 
 public class CodeGenerator {
 
-    public static void main(String args[]){
+    public static void main(String[] args){
         //依赖model的包名
         String modelPackage = "okkpp.model";
         //生成service 的包名

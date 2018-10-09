@@ -26,13 +26,12 @@ public class JfinalDbConfig {
 	
 
 	@Bean
-	public boolean JbootDbPlugin() {
+	public boolean jbootDbPlugin() {
 		List<ActiveRecordPlugin> arps = JbootDbManager.me().getActiveRecordPlugins();
         for (ActiveRecordPlugin arp : arps) {
             plugins.add(arp);
         }
 
-//        JbootAppListenerManager.me().onJfinalPluginConfig(new JfinalPlugins(plugins));
         logger.info("start JfinalPlugins");
         startPlugins();
 		return true;
@@ -53,7 +52,7 @@ public class JfinalDbConfig {
 					}
 				}
 				
-				if (plugin.start() == false) {
+				if (!plugin.start()) {
 					String message = "Plugin start error: " + plugin.getClass().getName();
 					log.error(message);
 					throw new RuntimeException(message);
