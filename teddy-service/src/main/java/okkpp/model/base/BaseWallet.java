@@ -9,27 +9,6 @@ import com.jfinal.plugin.activerecord.IBean;
 @SuppressWarnings("serial")
 public abstract class BaseWallet<M extends BaseWallet<M>> extends JbootModel<M> implements IBean {
 
-    public static final String ACTION_ADD = "Wallet:add";
-    public static final String ACTION_DELETE = "Wallet:delete";
-    public static final String ACTION_UPDATE = "Wallet:update";
-
-
-    @Override
-    public String addAction() {
-        return ACTION_ADD;
-    }
-
-    @Override
-    public String deleteAction() {
-        return ACTION_DELETE;
-    }
-
-    @Override
-    public String updateAction() {
-        return ACTION_UPDATE;
-    }
-
-
 	public void setId(java.lang.Long id) {
 		set("id", id);
 	}

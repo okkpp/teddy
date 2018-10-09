@@ -16,9 +16,9 @@ import com.jfinal.plugin.activerecord.ActiveRecordPlugin;
 import io.jboot.db.JbootDbManager;
 
 @Configuration
-public class JfinalDbConfig {
+public class JbootDbConfig {
 
-	static final Logger logger = LoggerFactory.getLogger(JfinalDbConfig.class);
+	static final Logger logger = LoggerFactory.getLogger(JbootDbConfig.class);
 	
 	private static Log log;
 	

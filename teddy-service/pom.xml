@@ -16,7 +16,7 @@
 		<dependency>
 			<groupId>io.jboot</groupId>
 			<artifactId>jboot</artifactId>
-			<version>1.4.7</version>
+			<version>1.6.9</version>
 			<exclusions>
 				<exclusion>
 					<groupId>io.undertow</groupId>
@@ -57,6 +57,18 @@
 				<exclusion>
 					<groupId>io.swagger</groupId>
 					<artifactId>swagger-core</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>io.dropwizard.metrics</groupId>
+					<artifactId>metrics-core</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>io.dropwizard.metrics</groupId>
+					<artifactId>metrics-graphite</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>io.dropwizard.metrics</groupId>
+					<artifactId>metrics-servlets</artifactId>
 				</exclusion>
 			</exclusions>
 		</dependency>
