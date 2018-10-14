@@ -57,6 +57,9 @@ public class MyTokenFilter extends AccessControlFilter {
 		HttpServletRequest rq = (HttpServletRequest) request;
 		Cookie token = null;
 		Cookie[] cookies = rq.getCookies();
+		if(null == cookies) {
+			return false;
+		}
 		for (Cookie cookie : cookies) {
 			if ("token".equals(cookie.getName())) {
 				token = cookie;

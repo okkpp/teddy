@@ -19,7 +19,6 @@ public class BaseController {
 	}
 	@ExceptionHandler(value = Exception.class)
     public Result<String> baseExceptionHandler(Exception e) {
-		Result<String> result = faildMsg(e.getMessage());
-		return result;
+		return faildMsg(e.getMessage());
     }
 }

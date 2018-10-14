@@ -52,6 +52,7 @@ public class UserController extends BaseController {
 		try {
 			subject.login(token);
 			UUID uuid = UUID.randomUUID();
+			// 把用户登录信息存入缓存 key值为 TOKEN_{用户标识}
 			ehcacheUtil.put(EhCacheConstants.TOKEN_PREFIX + uuid.toString(), token);
 			response.addCookie(new Cookie("token", uuid.toString()));
 			return new Result<>("登录成功");

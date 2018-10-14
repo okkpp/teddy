@@ -51,8 +51,7 @@ public class ShiroConfig {
 	 * @return
 	 */
 	public MyTokenFilter tokenFilter() {
-		MyTokenFilter myTokenFilter = new MyTokenFilter();
-		return myTokenFilter;
+		return new MyTokenFilter();
 	}
 	@Bean
 	public DefaultWebSecurityManager securityManager() {

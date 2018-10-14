@@ -10,6 +10,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import okkpp.common.base.BaseController;
 import okkpp.common.result.PageInfo;
+import okkpp.common.result.PagedResult;
 import okkpp.common.result.Result;
 import okkpp.dto.PostContentDTO;
 import okkpp.dto.PostDTO;
@@ -35,8 +36,8 @@ public class PostController extends BaseController {
 	
 	@ApiOperation("获取推送")
 	@PostMapping("getPost")
-	public Result<List<PostDTO>> getPost(PageInfo pageinfo) {
-		Result<List<PostDTO>> result = new Result<>();
+	public PagedResult<List<PostDTO>> getPost(PageInfo pageinfo) {
+		PagedResult<List<PostDTO>> result = new PagedResult<List<PostDTO>>(null);
 		
 		return result;
 	}
@@ -44,7 +45,7 @@ public class PostController extends BaseController {
 	@ApiOperation("获取文章内容")
 	@PostMapping("getContent")
 	public Result<PostContentDTO> getContent(Long postId) {
-		Result<PostContentDTO> result = new Result<>();
+		Result<PostContentDTO> result = new Result<>(null);
 		
 		return result;
 	}
