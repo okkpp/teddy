@@ -98,6 +98,8 @@ public class MyClassScanner {
                         }
                     }
                 }
+            }else if("file".equalsIgnoreCase(protocol)) {
+            	initByFilePath(new File(url.getFile()).getCanonicalPath());
             }
         }
     }
@@ -111,6 +113,7 @@ public class MyClassScanner {
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	private static <T> void findClassesByParent(List<Class<T>> classes, Class<T> pclazz, boolean mustCanNewInstance) {
 		for (Class clazz : appClasses) {
+			System.out.println(clazz.getName());
 			tryToaddClass(classes, pclazz, mustCanNewInstance, clazz);
 		}
 	}
@@ -197,7 +200,7 @@ public class MyClassScanner {
 			int end = file.toString().length() - ".class".length();
 
 			String classFile = file.toString().substring(start + 1, end);
-			String className = classFile.replace(File.separator, ".");
+			String className = "okkpp."+classFile.replace(File.separator, ".");
 
 			initAppClasses(classForName(className));
 		}

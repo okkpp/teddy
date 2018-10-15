@@ -8,6 +8,12 @@ import okkpp.common.result.Result;
 @Component
 public class BaseController {
 
+	protected Result<String> result(boolean result){
+		if(result) {
+			return successMsg("请求成功");
+		}
+		return faildMsg("请求失败");
+	}
 	protected Result<String> successMsg(String msg){
 		return Result.success(msg);
 	}

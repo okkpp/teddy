@@ -2,6 +2,7 @@ package okkpp.post.controller;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -14,22 +15,26 @@ import okkpp.common.result.PagedResult;
 import okkpp.common.result.Result;
 import okkpp.dto.PostContentDTO;
 import okkpp.dto.PostDTO;
+import okkpp.dto.PostVO;
+import okkpp.service.PostService;
 
 @Api(description = "推送管理")
 @RequestMapping("post")
 @RestController
 public class PostController extends BaseController {
 
+	@Autowired
+	private PostService postService;
+	
 	@ApiOperation("推送简短消息-不带文章内容")
 	@PostMapping("postTrends")
-	public Result<String> postTrends(PostDTO post) {
-		
-		return successMsg("推送成功！");
+	public Result<String> postTrends(PostVO post) {
+		return result(postService.postTrends(post));
 	}
 	
 	@ApiOperation("推送文章内容")
 	@PostMapping("postArticle")
-	public Result<String> postArticle(PostDTO post, String content) {
+	public Result<String> postArticle(PostVO post, String content) {
 		
 		return successMsg("推送成功！");
 	}

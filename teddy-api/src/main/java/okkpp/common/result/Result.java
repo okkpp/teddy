@@ -43,7 +43,7 @@ public class Result<T> {
 		return new Result<>(Response.FAILED.getCode(), msg);
 	}
 	public static Result<String> notLogin() {
-		return new Result<>(Response.FAILED.getCode(), "not login");
+		return new Result<>(Response.FAILED.getCode(), "未登录");
 	}
 	public int getCode() {
 		return code;

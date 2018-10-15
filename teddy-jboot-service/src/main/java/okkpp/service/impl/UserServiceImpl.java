@@ -11,6 +11,8 @@ import java.util.List;
 
 import javax.inject.Singleton;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
@@ -22,8 +24,11 @@ import com.jfinal.plugin.activerecord.Record;
 @Singleton
 public class UserServiceImpl extends JbootServiceBase<User> implements UserService {
 
+	static final Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
+	
 	@Override
 	public User getUserByName(String username) {
+		logger.info("username = {}", username);
 		return DAO.findFirst("select * from t_user where username = ? ", username);
 	}
 
