@@ -1,6 +1,15 @@
 
-teddy-api/target
+teddy-api/target/
 
-teddy-service/target
+teddy-jboot-service/target/
 
-.class
+teddy-service/target/
+
+*.class
+
+
+*/.settings/
+
+*.classpath
+
+*.project
