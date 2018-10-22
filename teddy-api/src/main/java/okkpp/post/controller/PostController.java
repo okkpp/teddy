@@ -15,7 +15,7 @@ import okkpp.common.result.PagedResult;
 import okkpp.common.result.Result;
 import okkpp.dto.PostContentDTO;
 import okkpp.dto.PostDTO;
-import okkpp.dto.PostVO;
+import okkpp.vo.PostVO;
 import okkpp.service.PostService;
 
 @Api(description = "推送管理")

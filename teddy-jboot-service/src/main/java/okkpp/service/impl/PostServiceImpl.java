@@ -2,7 +2,7 @@ package okkpp.service.impl;
 
 import io.jboot.aop.annotation.Bean;
 import okkpp.service.PostService;
-import okkpp.dto.PostVO;
+import okkpp.vo.PostVO;
 import okkpp.model.Post;
 import io.jboot.service.JbootServiceBase;
 

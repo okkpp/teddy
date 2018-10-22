@@ -1,4 +1,4 @@
-package okkpp.dto;
+package okkpp.vo;
 
 import java.io.Serializable;
 

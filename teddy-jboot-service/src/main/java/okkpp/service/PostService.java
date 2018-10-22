@@ -1,6 +1,6 @@
 package okkpp.service;
 
-import okkpp.dto.PostVO;
+import okkpp.vo.PostVO;
 import okkpp.model.Post;
 
 import java.util.List;

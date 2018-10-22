@@ -30,6 +30,7 @@ import okkpp.constants.EhCacheConstants;
 import okkpp.dto.UserDTO;
 import okkpp.model.User;
 import okkpp.service.UserService;
+import okkpp.vo.UserVO;
 
 @Api(description = "用户管理")
 @RequestMapping("user")
@@ -79,7 +80,7 @@ public class UserController extends BaseController {
 
 	@ApiOperation("注册")
 	@GetMapping("register")
-	public Result<String> register(UserDTO user) {
+	public Result<String> register(UserVO user) {
 		user.setPassword(new SimpleHash("SHA-256", user.getPassword(), null, 1024).toHex());
 		User model = new User();
 		BeanUtils.copyProperties(user, model);
