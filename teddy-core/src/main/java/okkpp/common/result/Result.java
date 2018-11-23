@@ -15,9 +15,10 @@ public class Result<T> {
 	
 	public Result() {
 		this.code = Response.MSG.getCode();
-	};
+	}
 	public Result(T data) {
-		this(Response.DATA.getCode(), null, data);
+		//如果data为null 则状态码应该失败
+		this(null==data?Response.FAILED.getCode():Response.DATA.getCode(), null, data);
 	}
 	public Result(String msg) {
 		this(Response.MSG.getCode(), msg);

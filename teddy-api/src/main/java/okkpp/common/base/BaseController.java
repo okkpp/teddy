@@ -16,15 +16,16 @@ public class BaseController {
 		}
 		return faildMsg("请求失败");
 	}
+	protected <T> Result<T> resultData(T data){
+		return new Result<>(data);
+	}
 	protected Result<String> successMsg(String msg){
 		return Result.success(msg);
 	}
 	protected Result<String> faildMsg(String msg){
 		return Result.failed(msg);
 	}
-	protected <T> Result<T> successData(T data){
-		return new Result<>(data);
-	}
+	
 	@ExceptionHandler(value = Exception.class)
     public Result<String> baseExceptionHandler(Exception e) {
 		return faildMsg(e.getMessage());

@@ -1,15 +1,20 @@
 package okkpp.service;
 
 import okkpp.vo.PostVO;
+import okkpp.common.result.PageInfo;
+import okkpp.common.result.PagedResult;
+import okkpp.dto.PostDTO;
 import okkpp.model.Post;
 
 import java.util.List;
 
 public interface PostService  {
 
-	public boolean postArticle(PostVO post, String content);
+	public PagedResult<List<PostDTO>> getPost(PageInfo pageinfo, PostVO condition);
 	
-	public boolean postTrends(PostVO post);
+	public PostDTO postArticle(PostVO post, String content);
+	
+	public PostDTO postTrends(PostVO post);
     /**
      * find model by primary key
      *

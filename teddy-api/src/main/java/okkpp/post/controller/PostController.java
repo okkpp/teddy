@@ -28,20 +28,19 @@ public class PostController extends BaseController {
 	
 	@ApiOperation("推送简短消息-不带文章内容")
 	@PostMapping("postTrends")
-	public Result<String> postTrends(PostVO post) {
-		return result(postService.postTrends(post));
+	public Result<PostDTO> postTrends(PostVO post) {
+		return resultData(postService.postTrends(post));
 	}
 	
 	@ApiOperation("推送文章内容")
 	@PostMapping("postArticle")
-	public Result<String> postArticle(PostVO post, String content) {
-		
-		return successMsg("推送成功！");
+	public Result<PostDTO> postArticle(PostVO post, String content) {
+		return resultData(postService.postArticle(post, content));
 	}
 	
 	@ApiOperation("获取推送")
 	@PostMapping("getPost")
-	public PagedResult<List<PostDTO>> getPost(PageInfo pageinfo) {
+	public PagedResult<List<PostDTO>> getPost(PageInfo pageinfo, PostVO condition) {
 		PagedResult<List<PostDTO>> result = new PagedResult<List<PostDTO>>(null);
 		
 		return result;

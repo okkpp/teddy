@@ -10,6 +10,7 @@
 		<module>teddy-api</module>
 		<module>teddy-jboot-service</module>
 		<module>teddy-service</module>
+		<module>teddy-core</module>
 	</modules>
 
 	<parent>

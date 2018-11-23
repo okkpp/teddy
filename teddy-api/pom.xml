@@ -67,20 +67,11 @@
 			<version>2.6.1</version>
 		</dependency>
 
-		<!-- ftp & sftp -->
-		<!-- https://mvnrepository.com/artifact/commons-net/commons-net -->
 		<dependency>
-			<groupId>commons-net</groupId>
-			<artifactId>commons-net</artifactId>
-			<version>3.3</version>
+			<groupId>okkpp</groupId>
+			<artifactId>teddy-core</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
-		<!-- https://mvnrepository.com/artifact/com.jcraft/jsch -->
-		<dependency>
-			<groupId>com.jcraft</groupId>
-			<artifactId>jsch</artifactId>
-			<version>0.1.53</version>
-		</dependency>
-		<!-- end of ftp & sftp -->
 	</dependencies>
 
 	<build>
