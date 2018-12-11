@@ -1,4 +1,4 @@
-package okkpp.test.controller;
+package okkpp.controller.test;
 
 import java.util.ArrayList;
 import java.util.List;

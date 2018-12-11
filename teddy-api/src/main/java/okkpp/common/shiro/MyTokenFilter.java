@@ -29,7 +29,7 @@ import okkpp.service.UserService;
 public class MyTokenFilter extends AccessControlFilter {
 
 	/**
-	 * 项目启动，该类在bean注册前初始化，会报空指针， 所以， 需要使用的时候，在代码中用SpringUtil注入。
+	 * 	项目启动，该类在bean注册前初始化，会报空指针， 所以， 需要使用的时候，在代码中用SpringUtil注入。
 	 */
 	private RoleUrlService roleUrlService;
 	private UserService userService;

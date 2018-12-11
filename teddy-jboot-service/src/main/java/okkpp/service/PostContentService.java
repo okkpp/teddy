@@ -1,5 +1,7 @@
 package okkpp.service;
 
+import okkpp.common.result.Result;
+import okkpp.dto.PostContentDTO;
 import okkpp.model.PostContent;
 
 import java.util.List;
@@ -66,6 +68,9 @@ public interface PostContentService  {
      * @return
      */
     public boolean update(PostContent model);
+
+
+	Result<PostContentDTO> getContentById(Long postId);
 
 
 }

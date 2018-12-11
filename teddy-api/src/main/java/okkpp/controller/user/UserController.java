@@ -1,4 +1,4 @@
-package okkpp.user.controller;
+package okkpp.controller.user;
 
 import java.util.UUID;
 
@@ -12,7 +12,6 @@ import org.apache.shiro.authc.LockedAccountException;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.crypto.hash.SimpleHash;
 import org.apache.shiro.subject.Subject;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -72,9 +71,7 @@ public class UserController extends BaseController {
 	@ApiOperation("登录信息")
 	@GetMapping("currentUser")
 	public Result<UserDTO> currentUser() {
-		Subject subject = SecurityUtils.getSubject();
-		UserDTO user = new UserDTO();
-		BeanUtils.copyProperties((User) subject.getPrincipal(), user);
+		UserDTO user = transfer(getSubject(), UserDTO.class);
 		return new Result<UserDTO>(user);
 	}
 
@@ -82,8 +79,7 @@ public class UserController extends BaseController {
 	@GetMapping("register")
 	public Result<String> register(UserVO user) {
 		user.setPassword(new SimpleHash("SHA-256", user.getPassword(), null, 1024).toHex());
-		User model = new User();
-		BeanUtils.copyProperties(user, model);
+		User model = transfer(user, User.class);
 		boolean result = userService.save(model);
 		if (result) {
 			return Result.success();

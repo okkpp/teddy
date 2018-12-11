@@ -12,8 +12,19 @@ public interface PostService  {
 
 	public PagedResult<List<PostDTO>> getPost(PageInfo pageinfo, PostVO condition);
 	
+	/**
+	 * 文章
+	 * @param post
+	 * @param content
+	 * @return
+	 */
 	public PostDTO postArticle(PostVO post, String content);
 	
+	/**
+	 * 朋友圈
+	 * @param post
+	 * @return
+	 */
 	public PostDTO postTrends(PostVO post);
     /**
      * find model by primary key
@@ -75,6 +86,5 @@ public interface PostService  {
      * @return
      */
     public boolean update(Post model);
-
 
 }

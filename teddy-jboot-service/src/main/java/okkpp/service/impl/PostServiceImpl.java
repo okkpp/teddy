@@ -5,7 +5,9 @@ import okkpp.service.PostService;
 import okkpp.vo.PostVO;
 import okkpp.common.result.PageInfo;
 import okkpp.common.result.PagedResult;
+import okkpp.common.result.Result;
 import okkpp.common.sql.QueryHelper;
+import okkpp.dto.PostContentDTO;
 import okkpp.dto.PostDTO;
 import okkpp.model.Post;
 import okkpp.model.PostContent;
@@ -19,6 +21,7 @@ import javax.inject.Singleton;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
 
 import com.jfinal.aop.Before;
 import com.jfinal.plugin.activerecord.Page;
@@ -67,6 +70,7 @@ public class PostServiceImpl extends JbootServiceBase<Post> implements PostServi
 
 	@Override
 	public PagedResult<List<PostDTO>> getPost(PageInfo pageinfo, PostVO condition) {
+		//构建SQL语句
 		QueryHelper sql = new QueryHelper("select * ", " from t_post ");
 		sql.addWhere("author_id", condition.getAuthorId())
 			.addWhere("channel_id", condition.getChannelId())
@@ -74,17 +78,27 @@ public class PostServiceImpl extends JbootServiceBase<Post> implements PostServi
 			.addWhereLike("summary", condition.getSummary())
 			.addWhereLike("tags", condition.getTags())
 			.build();
+		//分页查询
 		Page<Post> paginate = DAO.paginate(pageinfo.getPageNo(), pageinfo.getPageSize(),
 				sql.getSelect(),
 				sql.getSqlExceptSelect(),
 				sql.getParams());
+		
+		return new PagedResult<>(format(paginate), paginate.getPageNumber(), paginate.getPageSize(), paginate.getTotalPage());
+	}
+
+	/**
+	 * 重装结果
+	 * @param paginate
+	 * @return
+	 */
+	private List<PostDTO> format(Page<Post> paginate){
 		List<PostDTO> data = new ArrayList<>();
 		for(Post source : paginate.getList()) {
 			PostDTO target = new PostDTO();
 			BeanUtils.copyProperties(source, target);
 			data.add(target);
 		}
-		return new PagedResult<>(data, paginate.getPageNumber(), paginate.getPageSize(), paginate.getTotalPage());
+		return data;
 	}
-
 }
