@@ -9,6 +9,11 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.validation.beanvalidation.MethodValidationPostProcessor;
 
+/**
+ ** 用Spring的Assert工具包代替验证参数有效性
+ * @author okkpp
+ *
+ */
 @Configuration
 public class ValidatorConfiguration {
 
