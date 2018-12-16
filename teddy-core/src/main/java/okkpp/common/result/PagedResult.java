@@ -6,7 +6,6 @@ public class PagedResult<T> extends Result<T> {
 	private int pageSize;
 	private int totalPage;
 	
-	
 	public PagedResult(T data, int pageNo, int pageSize, int totalPage) {
 		this(data);
 		this.pageNo = pageNo;
@@ -41,5 +40,4 @@ public class PagedResult<T> extends Result<T> {
 	public void setTotalPage(int totalPage) {
 		this.totalPage = totalPage;
 	}
-
 }

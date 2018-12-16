@@ -27,6 +27,7 @@ public class ShiroConfig {
 		Map<String, String> filterChain = new LinkedHashMap<>();
 		filterChain.put("/user/logout", "logout");
 		filterChain.put("/user/login", "anon");
+		filterChain.put("/user/register", "anon");
 		filterChain.put("/user/unauthorized", "anon");
 		
 		filterChain.put("/swagger-ui.html", "anon");

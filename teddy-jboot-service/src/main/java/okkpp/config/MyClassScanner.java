@@ -37,7 +37,7 @@ public class MyClassScanner {
 ////			System.out.println(c.getName());
 ////		}
 //	}
-	
+
 	@SuppressWarnings("rawtypes")
 	private static final Set<Class> appClasses = new HashSet<>();
 
@@ -65,42 +65,47 @@ public class MyClassScanner {
 		findClassesByParent(classes, pclazz, mustCanNewInstance);
 		return classes;
 	}
-    private static void searchClass() throws IOException, ClassNotFoundException {
-        String basePack = "okkpp";
-        //通过当前线程得到类加载器从而得到URL的枚举
-        Enumeration<URL> urlEnumeration = Thread.currentThread().getContextClassLoader().getResources(basePack.replace(".", "/"));
-        while (urlEnumeration.hasMoreElements()) {
-            URL url = urlEnumeration.nextElement();//得到的结果大概是：jar:file:/C:/Users/ibm/.m2/repository/junit/junit/4.12/junit-4.12.jar!/org/junit
-            
-            String protocol = url.getProtocol();//大概是jar
-            System.out.println("url="+url+" protocol="+protocol);
-            if ("jar".equalsIgnoreCase(protocol)) {
-                //转换为JarURLConnection
-                JarURLConnection connection = (JarURLConnection) url.openConnection();
-                if (connection != null) {
-                    JarFile jarFile = connection.getJarFile();
-                    if (jarFile != null) {
-                        //得到该jar文件下面的类实体
-                        Enumeration<JarEntry> jarEntryEnumeration = jarFile.entries();
-                        while (jarEntryEnumeration.hasMoreElements()) {
-                            /*entry的结果大概是这样：
-                                    org/
-                                    org/junit/
-                                    org/junit/rules/
-                                    org/junit/runners/*/
-                            JarEntry entry = jarEntryEnumeration.nextElement();
-                            String jarEntryName = entry.getName();
-                            //这里我们需要过滤不是class文件和不在basePack包名下的类
-                            if (jarEntryName.contains(".class") && jarEntryName.replaceAll("/",".").startsWith(basePack)) {
-                                String className = jarEntryName.substring(0, jarEntryName.lastIndexOf(".")).replace("/", ".");
-                                initAppClasses(classForName(className));
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
+
+	private static void searchClass() throws IOException, ClassNotFoundException {
+		String basePack = "okkpp";
+		// 通过当前线程得到类加载器从而得到URL的枚举
+		Enumeration<URL> urlEnumeration = Thread.currentThread().getContextClassLoader()
+				.getResources(basePack.replace(".", "/"));
+		while (urlEnumeration.hasMoreElements()) {
+			URL url = urlEnumeration.nextElement();// 得到的结果大概是：jar:file:/C:/Users/ibm/.m2/repository/junit/junit/4.12/junit-4.12.jar!/org/junit
+
+			String protocol = url.getProtocol();// 大概是jar
+//            System.out.println("url="+url+" protocol="+protocol);
+			if ("jar".equalsIgnoreCase(protocol)) {
+				// 转换为JarURLConnection
+				JarURLConnection connection = (JarURLConnection) url.openConnection();
+				if (connection != null) {
+					JarFile jarFile = connection.getJarFile();
+					if (jarFile != null) {
+						// 得到该jar文件下面的类实体
+						Enumeration<JarEntry> jarEntryEnumeration = jarFile.entries();
+						while (jarEntryEnumeration.hasMoreElements()) {
+							/*
+							 * entry的结果大概是这样： org/ org/junit/ org/junit/rules/ org/junit/runners/
+							 */
+							JarEntry entry = jarEntryEnumeration.nextElement();
+							String jarEntryName = entry.getName();
+							// 这里我们需要过滤不是class文件和不在basePack包名下的类
+							if (jarEntryName.contains(".class")
+									&& jarEntryName.replaceAll("/", ".").startsWith(basePack)) {
+								String className = jarEntryName.substring(0, jarEntryName.lastIndexOf(".")).replace("/",
+										".");
+								initAppClasses(classForName(className));
+							}
+						}
+					}
+				}
+			} else if ("file".equalsIgnoreCase(protocol)) {
+				initByFilePath(new File(url.getFile()).getCanonicalPath());
+			}
+		}
+	}
+
 	/**
 	 * 开发环境下，用于热加载后重新清空所有的类
 	 */
@@ -111,6 +116,7 @@ public class MyClassScanner {
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	private static <T> void findClassesByParent(List<Class<T>> classes, Class<T> pclazz, boolean mustCanNewInstance) {
 		for (Class clazz : appClasses) {
+//			System.out.println(clazz.getName());
 			tryToaddClass(classes, pclazz, mustCanNewInstance, clazz);
 		}
 	}
@@ -188,7 +194,7 @@ public class MyClassScanner {
 	}
 
 	private static void initByFilePath(String filePath) {
-		System.out.println("initByFilePath : "+filePath);
+		System.out.println("initByFilePath : " + filePath);
 		List<File> classFileList = new ArrayList<>();
 		scanClassFile(classFileList, filePath);
 		for (File file : classFileList) {
@@ -197,7 +203,7 @@ public class MyClassScanner {
 			int end = file.toString().length() - ".class".length();
 
 			String classFile = file.toString().substring(start + 1, end);
-			String className = classFile.replace(File.separator, ".");
+			String className = "okkpp." + classFile.replace(File.separator, ".");
 
 			initAppClasses(classForName(className));
 		}
@@ -218,7 +224,7 @@ public class MyClassScanner {
 				for (URL url : urLs) {
 					String path = url.getPath();
 					path = URLDecoder.decode(path, Const.DEFAULT_ENCODING);
-					
+
 					// path : /d:/xxx
 					if (path.startsWith("/") && path.indexOf(":") == 2) {
 						path = path.substring(1);
@@ -227,8 +233,8 @@ public class MyClassScanner {
 //					if (path.endsWith("/")) {
 //						path = path.substring(0, path.length()-1);
 //					}
-					System.out.println("path = "+path+" protocol="+url.getProtocol());
-					
+					System.out.println("path = " + path + " protocol=" + url.getProtocol());
+
 					if (!path.toLowerCase().endsWith(".jar")) {
 						System.out.println("not end whith jar");
 						initByFilePath(new File(path).getCanonicalPath());

@@ -1,4 +1,4 @@
-package okkpp.test.controller;
+package okkpp.controller.test;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,6 +7,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -21,6 +22,7 @@ import okkpp.common.result.Result;
 import okkpp.dto.UserDTO;
 import okkpp.model.User;
 import okkpp.service.UserService;
+import okkpp.vo.TestVO;
 
 @Api(value="测试API")
 @RequestMapping("/test")
@@ -57,5 +59,12 @@ public class TestController extends BaseController {
 	@GetMapping("error")
 	public Result<String> error() throws Exception {
 		throw new Exception("my test exception");
+	}
+	
+	@ApiOperation("测试数据校验接口")
+	@PostMapping("validate")
+	public Result<String> validate(TestVO vo) {
+		
+		return successMsg("vo:"+vo.toString());
 	}
 }
