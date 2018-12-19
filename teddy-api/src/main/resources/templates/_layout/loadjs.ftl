@@ -36,3 +36,5 @@
 	
 	<!-- Ekan Admin for demo purposes -->
 	<script src="/js/demo.js"></script>	
+
+	<script src="/js/http.js"></script>

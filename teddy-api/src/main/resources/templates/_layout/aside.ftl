@@ -16,9 +16,9 @@
       </div>
       
       <!-- sidebar menu-->
-      <ul class="sidebar-menu" data-widget="tree">
+      <ul class="sidebar-menu" data-widget="tree" id="sidebar">
 		  
-        <li class="header nav-small-cap">APPS</li>
+<!--         <li class="header nav-small-cap">APPS</li>
 		
 		<li class="treeview active">
           <a href="#">
@@ -35,7 +35,7 @@
             <li><a href="index-4.html"><i class="ti-more"></i>Dashboard 4</a></li>
             <li><a href="index-5.html"><i class="ti-more"></i>Dashboard 5</a></li>
           </ul>
-        </li> 
+        </li>  -->
         
       </ul>
     </section>

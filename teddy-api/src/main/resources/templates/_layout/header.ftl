@@ -1,6 +1,6 @@
   <header class="main-header">
     <!-- Logo -->
-    <a href="index.html" class="logo">
+    <a href="/manager/index" class="logo">
       <!-- mini logo -->
 	  <div class="logo-mini">
 		  <span class="light-logo"><img src="/images/logo-light.png" alt="logo"></span>
@@ -331,22 +331,22 @@
 				  <div class="flexbox align-self-center">					  
 				  	<img src="/images/user.jpg" class="float-left rounded-circle" alt="User Image">					  
 					<h4 class="user-name align-self-center">
-					  <span>Samuel Brus</span>
-					  <small>samuel@gmail.com</small>
+					  <span>${user.username!"未设置"}</span>
+					  <small>${user.email!"未设置"}</small>
 					</h4>
 				  </div>
               </li>
               <!-- Menu Body -->
               <li class="user-body">
-				    <a class="dropdown-item" href="javascript:void(0)"><i class="ion ion-person"></i> My Profile</a>
-					<a class="dropdown-item" href="javascript:void(0)"><i class="ion ion-bag"></i> My Balance</a>
-					<a class="dropdown-item" href="javascript:void(0)"><i class="ion ion-email-unread"></i> Inbox</a>
+				    <a class="dropdown-item" href="javascript:void(0)"><i class="ion ion-person"></i>个人简介</a>
+					<a class="dropdown-item" href="javascript:void(0)"><i class="ion ion-bag"></i>钱包</a>
+					<a class="dropdown-item" href="javascript:void(0)"><i class="ion ion-email-unread"></i>信箱</a>
 					<div class="dropdown-divider"></div>
-					<a class="dropdown-item" href="javascript:void(0)"><i class="ion ion-settings"></i> Account Setting</a>
+					<a class="dropdown-item" href="javascript:void(0)"><i class="ion ion-settings"></i>账户设置</a>
 					<div class="dropdown-divider"></div>
-					<a class="dropdown-item" href="javascript:void(0)"><i class="ion-log-out"></i> Logout</a>
+					<a class="dropdown-item" href="javascript:void(0)"><i class="ion-log-out"></i>退出登录</a>
 					<div class="dropdown-divider"></div>
-					<div class="p-10"><a href="javascript:void(0)" class="btn btn-sm btn-rounded btn-success">View Profile</a></div>
+					<div class="p-10"><a href="javascript:void(0)" class="btn btn-sm btn-rounded btn-success">查看详细</a></div>
               </li>
             </ul>
           </li>	

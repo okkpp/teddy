@@ -4,7 +4,7 @@
 
 <#macro layout>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="cn">
 
 <#include "/_layout/head.ftl"/>
 
@@ -32,4 +32,34 @@
 	
 </body>
 </html>
+
+<script type="text/template" id="aside_tpl">
+        <li class="header nav-small-cap">{title}</li>
+		
+		<li class="treeview">
+          <a href="#">
+            <i class="ti-pencil-alt"></i>
+            <span>{name}</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-right pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            	{list}
+          </ul>
+        </li>
+</script>
+<script type="text/template" id="aside_li_tpl">
+			<li><a href="{url}"><i class="ti-more"></i>{name}</a></li>
+</script>
+<script type="text/javascript">
+okkpp.get("/json/sidebar.json", null, function(data){
+	for(var i=0;i<data.length;i++){
+		var li = okkpp.dataTemplate4list($("#aside_li_tpl").html(), data[i].list);
+		data[i].list = li;
+	}
+	var tpl = okkpp.dataTemplate4list($("#aside_tpl").html(), data);
+	$("#sidebar").html(tpl);
+});
+</script>
 </#macro>
