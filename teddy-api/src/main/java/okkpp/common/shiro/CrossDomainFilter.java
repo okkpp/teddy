@@ -30,6 +30,8 @@ public class CrossDomainFilter implements Filter {
 		httpResponse.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, client_id, uuid, Authorization");
 		httpResponse.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // 支持HTTP 1.1.
 		httpResponse.setHeader("Pragma", "no-cache"); // 支持HTTP 1.0. response.setHeader("Expires", "0");
+		
+		request.setAttribute("domainTitle", "Teddy");
 		chain.doFilter(httpRequest, httpResponse);
 	}
 

@@ -67,6 +67,12 @@
 			<version>2.6.1</version>
 		</dependency>
 
+        <!-- 引入freemarker包 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-freemarker</artifactId>
+        </dependency>
+        
 		<dependency>
 			<groupId>okkpp</groupId>
 			<artifactId>teddy-core</artifactId>
