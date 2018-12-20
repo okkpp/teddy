@@ -1,7 +1,4 @@
-﻿<#macro loadjs>
-<#nested>
-</#macro>
-
+﻿<!-- 显示内容 -->
 <#macro layout>
 <!DOCTYPE html>
 <html lang="cn">
@@ -17,7 +14,9 @@
 
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
-		<#nested>
+
+  		<#nested>
+
   </div>
   <!-- /.content-wrapper -->
 	
@@ -28,11 +27,9 @@
 </div>
 <!-- ./wrapper -->
   	
+<!-- 默认js -->
 <#include "/_layout/loadjs.ftl"/>	
 	
-</body>
-</html>
-
 <script type="text/template" id="aside_tpl">
         <li class="header nav-small-cap">{title}</li>
 		
@@ -62,4 +59,7 @@ okkpp.get("/json/sidebar.json", null, function(data){
 	$("#sidebar").html(tpl);
 });
 </script>
+
+</body>
+</html>
 </#macro>

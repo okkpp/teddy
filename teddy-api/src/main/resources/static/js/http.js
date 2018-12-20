@@ -109,7 +109,56 @@ okkpp.dataTemplate = function(template, obj, dec){
 	}
 	return temp;
 }
+// 表格汉化列表
+var table_lang = {
+  "sProcessing": "处理中...",
+  "sLengthMenu": "每页 _MENU_ 项",
+  "sZeroRecords": "没有匹配结果",
+  "sInfo": "当前显示第 _START_ 至 _END_ 项，共 _TOTAL_ 项。",
+  "sInfoEmpty": "当前显示第 0 至 0 项，共 0 项",
+  "sInfoFiltered": "(由 _MAX_ 项结果过滤)",
+  "sInfoPostFix": "",
+  "sSearch": "搜索:",
+  "sUrl": "",
+  "sEmptyTable": "表中数据为空",
+  "sLoadingRecords": "载入中...",
+  "sInfoThousands": ",",
+  "oPaginate": {
+    "sFirst": "首页",
+    "sPrevious": "上一页",
+    "sNext": "下一页",
+    "sLast": "末页",
+    "sJump": "跳转"
+  },
+  "oAria": {
+    "sSortAscending": ": 以升序排列此列",
+    "sSortDescending": ": 以降序排列此列"
+  }
+};
 
+okkpp.tableInit = function(selector, columns, url, param ){
+	$(selector).DataTable({
+		language:table_lang,
+		lengthMenu: [5, 10, 15],
+		stripeClasses: ["odd", "even"],
+		processing: false,
+		serverSide: true,
+		ajax: function (data, callback, settings) {
+			if(null==param){
+				param = new Object;
+			}
+			param.pageSize = data.length;
+			param.pageNo = (data.start / data.length)+1;
+			//ajax请求数据
+			okkpp.get(url, param, function(result){
+				result.recordsTotal = result.totalPage;
+				result.recordsFiltered = result.totalPage;
+				callback(result);
+			});
+		},
+		columns:columns
+	});
+}
 function isFloat(n) {
 	return ((typeof n==='number')&&(n%1!==0));
 }
