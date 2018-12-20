@@ -14,20 +14,14 @@
 	<!-- Data Table-->
 	<link rel="stylesheet" type="text/css" href="/assets/vendor_components/datatable/datatables.min.css"/>
 	
-	<!-- daterange picker -->	
-	<link rel="stylesheet" href="/assets/vendor_components/bootstrap-daterangepicker/daterangepicker.css">
-	
-    <!-- c3 CSS -->
-    <link rel="stylesheet" type="text/css" href="/assets/vendor_components/c3/c3.min.css">
-    
 	<!-- Bootstrap extend-->
-	<link rel="stylesheet" href="/css/bootstrap-extend.css">
-	
+	<link rel="stylesheet" href="../css/bootstrap-extend.css">
+
 	<!-- Theme style -->
-	<link rel="stylesheet" href="/css/master_style.css">
+	<link rel="stylesheet" href="../css/master_style.css">
 
 	<!-- Ekan Admin skins -->
-	<link rel="stylesheet" href="/css/skins/_all-skins.css">	
+	<link rel="stylesheet" href="../css/skins/_all-skins.css">		
 
 	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
