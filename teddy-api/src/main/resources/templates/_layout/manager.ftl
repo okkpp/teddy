@@ -2,7 +2,12 @@
 <#macro layout>
 <!DOCTYPE html>
 <html lang="cn">
-
+<#if user??>
+<#else>
+<script type="text/javascript">
+location.href = "/auth/login";
+</script>
+</#if>
 <#include "/_layout/head.ftl"/>
 
 <body class="hold-transition skin-info dark-sidebar light sidebar-mini">
