@@ -21,6 +21,10 @@ public class QueryHelper implements Serializable{
 	
 	public QueryHelper(){}
 	
+	public QueryHelper(String tableName) {
+		this("select * ", " from "+tableName);
+	}
+	
 	public QueryHelper(String select, String sqlExceptSelect){
 		this.select = select;
 		this.sqlExceptSelect = sqlExceptSelect;

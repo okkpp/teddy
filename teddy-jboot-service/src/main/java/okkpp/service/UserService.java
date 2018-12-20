@@ -1,5 +1,7 @@
 package okkpp.service;
 
+import okkpp.common.result.PageInfo;
+import okkpp.common.result.PagedResult;
 import okkpp.model.User;
 
 import java.util.List;
@@ -71,6 +73,7 @@ public interface UserService  {
      * @return
      */
     public boolean update(User model);
+    PagedResult<List<User>> list(PageInfo pageinfo);
 
 
 }

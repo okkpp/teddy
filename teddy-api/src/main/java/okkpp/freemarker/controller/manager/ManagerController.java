@@ -15,4 +15,10 @@ public class ManagerController extends BaseController {
 		model.addAttribute("user", getSubject());
 		return "/manager/index";
 	}
+	
+	@RequestMapping("user")
+	public String user(Model model) {
+		model.addAttribute("user", getSubject());
+		return "/manager/manager_user";
+	}
 }

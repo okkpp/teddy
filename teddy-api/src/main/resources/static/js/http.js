@@ -138,11 +138,17 @@ var table_lang = {
 
 okkpp.tableInit = function(selector, columns, url, param ){
 	$(selector).DataTable({
+		dom: 'Bfrtip',
+		buttons: [
+			'copy', 'csv', 'excel', 'pdf', 'print'
+		],
 		language:table_lang,
 		lengthMenu: [5, 10, 15],
 		stripeClasses: ["odd", "even"],
-		processing: false,
+		processing: true,
 		serverSide: true,
+        ordering: false,//是否启用排序
+        searching: false,//搜索
 		ajax: function (data, callback, settings) {
 			if(null==param){
 				param = new Object;
@@ -151,8 +157,8 @@ okkpp.tableInit = function(selector, columns, url, param ){
 			param.pageNo = (data.start / data.length)+1;
 			//ajax请求数据
 			okkpp.get(url, param, function(result){
-				result.recordsTotal = result.totalPage;
-				result.recordsFiltered = result.totalPage;
+				result.recordsTotal = result.totalRow;
+				result.recordsFiltered = result.totalRow;
 				callback(result);
 			});
 		},

@@ -2,6 +2,9 @@ package okkpp.service.impl;
 
 import io.jboot.aop.annotation.Bean;
 import okkpp.service.UserService;
+import okkpp.common.result.PageInfo;
+import okkpp.common.result.PagedResult;
+import okkpp.common.sql.QueryHelper;
 import okkpp.constants.EhCacheConstants;
 import okkpp.model.User;
 import io.jboot.service.JbootServiceBase;
@@ -17,6 +20,7 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import com.jfinal.plugin.activerecord.Db;
+import com.jfinal.plugin.activerecord.Page;
 import com.jfinal.plugin.activerecord.Record;
 
 @Service
@@ -62,4 +66,11 @@ public class UserServiceImpl extends JbootServiceBase<User> implements UserServi
 		return findUserUrl(user.getId());
 	}
 
+	@Override
+	public PagedResult<List<User>> list(PageInfo pageinfo) {
+		QueryHelper helper = new QueryHelper("t_user");
+		helper.build();
+		Page<User> paginate = DAO.paginate(pageinfo.getPageNo(), pageinfo.getPageSize(), helper.getSelect(), helper.getSqlExceptSelect(), helper.getParams());
+		return new PagedResult<List<User>>(paginate.getList(), paginate);
+	}
 }
