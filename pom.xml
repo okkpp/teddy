@@ -7,10 +7,10 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>pom</packaging>
 	<modules>
-		<module>teddy-api</module>
-		<module>teddy-jboot-service</module>
-		<module>teddy-service</module>
 		<module>teddy-core</module>
+		<module>teddy-jboot-service</module>
+		<module>teddy-api</module>
+		<module>teddy-service</module>
 	</modules>
 
 	<parent>
@@ -60,12 +60,12 @@
 		</dependencies>
 	</dependencyManagement>
 
-	<build>
+<!-- 	<build>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
 		</plugins>
-	</build>
+	</build> -->
 </project>

@@ -11,5 +11,7 @@ public class UserRole extends BaseUserRole<UserRole> {
 
 	private static final long serialVersionUID = 1L;
 
+	public static final String table = "t_user_role";
+
 	
 }

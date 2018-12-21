@@ -1,6 +1,8 @@
 
 teddy-api/target/
 
+teddy-core/target/
+
 teddy-jboot-service/target/
 
 teddy-service/target/
@@ -13,3 +15,5 @@ teddy-service/target/
 *.classpath
 
 *.project
+
+*.properties

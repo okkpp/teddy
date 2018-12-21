@@ -59,50 +59,6 @@
 										</tr>
 									</thead>
 									<tbody>
-<!-- 										<tr>
-											<td>#0025</td>
-											<td>February 2018</td>
-											<td>
-												<h6 class="mb-0">
-													<a href="#">Jacob</a>
-													<span class="d-block text-muted">Payment method: Skrill</span>
-												</h6>
-											</td>
-											<td>
-												<select name="status" class="form-control" data-placeholder="Select status">
-													<option value="overdue">Overdue</option>
-													<option value="hold" selected>On hold</option>
-													<option value="pending">Pending</option>
-													<option value="paid">Paid</option>
-													<option value="invalid">Invalid</option>
-													<option value="cancel">Canceled</option>
-												</select>
-											</td>
-											<td>
-												April 18, 2018
-											</td>
-											<td>
-												<span class="badge badge-success">Paid on Mar 16, 2018</span>
-											</td>
-											<td>
-												<h6 class="mb-0 font-weight-bold">$36,890 <span class="d-block text-muted font-weight-normal">VAT $4,859</span></h6>
-											</td>
-											<td class="text-center">
-												<div class="list-icons d-inline-flex">
-													<a href="#" class="list-icons-item mr-10"><i class="fa fa-eye-slash"></i></a>
-													<div class="list-icons-item dropdown">
-														<a href="#" class="list-icons-item dropdown-toggle" data-toggle="dropdown"><i class="fa fa-file-text"></i></a>
-														<div class="dropdown-menu dropdown-menu-right">
-															<a href="#" class="dropdown-item"><i class="fa fa-download"></i> Download</a>
-															<a href="#" class="dropdown-item"><i class="fa fa-print"></i> Print</a>
-															<div class="dropdown-divider"></div>
-															<a href="#" class="dropdown-item"><i class="fa fa-pencil"></i> Edit</a>
-															<a href="#" class="dropdown-item"><i class="fa fa-remove"></i> Remove</a>
-														</div>
-													</div>
-												</div>
-											</td>
-										</tr> -->
 									</tbody>
 								</table>
 																
@@ -189,5 +145,5 @@ columns = [
     { "data": "birthday" },
     { "orderable":false,"render":function(data){return $("#action").html();} }
 ];
-okkpp.tableInit('#mytable', columns, "/manager/user/list", null);
+okkpp.tableInit('#mytable', columns, "/manager/user/listUser", null);
 </script>

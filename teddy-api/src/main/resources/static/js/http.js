@@ -8,7 +8,10 @@ okkpp.post = function(url, param, callback, failureCallback){
         type: "POST",
         success: function (data) {
         	if(data.code != -200){
-        		if (callback != undefined) callback(data);
+        		if (callback != undefined){
+        			okkpp.handleResult(data);
+        			callback(data);
+        		}
         		return;
         	}else{
         		if (failureCallback != undefined) failureCallback(data);
@@ -36,7 +39,10 @@ okkpp.get = function(url, param, callback, failureCallback){
         type: "GET",
         success: function (data) {
         	if(data.code != -200){
-        		if (callback != undefined) callback(data);
+        		if (callback != undefined){
+        			okkpp.handleResult(data);
+        			callback(data);
+        		}
         		return;
         	}else{
         		if (failureCallback != undefined) failureCallback(data);
@@ -137,6 +143,11 @@ var table_lang = {
 };
 
 okkpp.tableInit = function(selector, columns, url, param ){
+	var active = {};
+	active.render = function(data,type,full,meta){
+		return okkpp.dataTemplate($("#action").html(),meta);
+	}
+	columns.push(active);
 	$(selector).DataTable({
 		dom: 'Bfrtip',
 		buttons: [
@@ -163,6 +174,35 @@ okkpp.tableInit = function(selector, columns, url, param ){
 			});
 		},
 		columns:columns
+	});
+}
+okkpp.tableReload = function(selector){
+	var table = $(selector).DataTable();
+	table.ajax.reload(null,false);
+}
+
+okkpp.handleResult = function(result){
+	if(result.code==200){
+//		alert(result.msg);
+	}else if(result.code==-200){
+		alert(result.msg);
+	}else{
+//		alert("unknown msg");
+	}
+}
+
+function edit(){
+	var table = $('#mytable').DataTable();
+	var data = table.row().data();
+	var f = okkpp.dataTemplate($("#form").html(), data);
+	$("#save_role").html(f);
+	$("#modal-default").modal('show');
+}
+function del(){
+	var table = $('#mytable').DataTable();
+	var data = table.row().data();
+	okkpp.post("/manager/user/delRole", data, function(data){
+		okkpp.tableReload("#mytable");
 	});
 }
 function isFloat(n) {

@@ -11,5 +11,7 @@ public class User extends BaseUser<User> {
 
 	private static final long serialVersionUID = 1L;
 
+	public static final String table = "t_user";
+
 	
 }

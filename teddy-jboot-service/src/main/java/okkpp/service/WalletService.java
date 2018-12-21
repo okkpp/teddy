@@ -1,5 +1,7 @@
 package okkpp.service;
 
+import okkpp.common.result.PageInfo;
+import okkpp.common.result.PagedResult;
 import okkpp.model.Wallet;
 
 import java.util.List;
@@ -67,5 +69,5 @@ public interface WalletService  {
      */
     public boolean update(Wallet model);
 
-
+	PagedResult<List<Wallet>> list(PageInfo pageinfo, String tableName);
 }

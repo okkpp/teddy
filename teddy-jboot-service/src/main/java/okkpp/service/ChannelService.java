@@ -1,5 +1,7 @@
 package okkpp.service;
 
+import okkpp.common.result.PageInfo;
+import okkpp.common.result.PagedResult;
 import okkpp.model.Channel;
 
 import java.util.List;
@@ -67,5 +69,5 @@ public interface ChannelService  {
      */
     public boolean update(Channel model);
 
-
+	PagedResult<List<Channel>> list(PageInfo pageinfo, String tableName);
 }

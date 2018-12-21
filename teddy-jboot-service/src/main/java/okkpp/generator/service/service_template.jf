@@ -1,5 +1,7 @@
 package #(basePackage);
 
+import okkpp.common.result.PageInfo;
+import okkpp.common.result.PagedResult;
 import #(modelPacket).#(tableMeta.modelName);
 
 import java.util.List;
@@ -67,5 +69,5 @@ public interface #(tableMeta.modelName)Service  {
      */
     public boolean update(#(tableMeta.modelName) model);
 
-
+	PagedResult<List<#(tableMeta.modelName)>> list(PageInfo pageinfo, String tableName);
 }

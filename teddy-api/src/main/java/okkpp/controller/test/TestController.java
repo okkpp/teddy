@@ -67,4 +67,10 @@ public class TestController extends BaseController {
 		
 		return successMsg("vo:"+vo.toString());
 	}
+	
+	@ApiOperation("测试jbootModel")
+	@GetMapping("model")
+	public Result<String> model(User user) {
+		return Result.success(user.toJson());
+	}
 }

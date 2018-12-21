@@ -73,7 +73,6 @@ public interface UserService  {
      * @return
      */
     public boolean update(User model);
-    PagedResult<List<User>> list(PageInfo pageinfo);
 
-
+    PagedResult<List<User>> list(PageInfo pageinfo, String tableName);
 }
