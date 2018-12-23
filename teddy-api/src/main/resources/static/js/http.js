@@ -8,7 +8,10 @@ okkpp.post = function(url, param, callback, failureCallback){
         type: "POST",
         success: function (data) {
         	if(data.code != -200){
-        		if (callback != undefined) callback(data);
+        		if (callback != undefined){
+        			okkpp.handleResult(data);
+        			callback(data);
+        		}
         		return;
         	}else{
         		if (failureCallback != undefined) failureCallback(data);
@@ -36,7 +39,10 @@ okkpp.get = function(url, param, callback, failureCallback){
         type: "GET",
         success: function (data) {
         	if(data.code != -200){
-        		if (callback != undefined) callback(data);
+        		if (callback != undefined){
+        			okkpp.handleResult(data);
+        			callback(data);
+        		}
         		return;
         	}else{
         		if (failureCallback != undefined) failureCallback(data);
@@ -109,7 +115,96 @@ okkpp.dataTemplate = function(template, obj, dec){
 	}
 	return temp;
 }
+// 表格汉化列表
+var table_lang = {
+  "sProcessing": "处理中...",
+  "sLengthMenu": "每页 _MENU_ 项",
+  "sZeroRecords": "没有匹配结果",
+  "sInfo": "当前显示第 _START_ 至 _END_ 项，共 _TOTAL_ 项。",
+  "sInfoEmpty": "当前显示第 0 至 0 项，共 0 项",
+  "sInfoFiltered": "(由 _MAX_ 项结果过滤)",
+  "sInfoPostFix": "",
+  "sSearch": "搜索:",
+  "sUrl": "",
+  "sEmptyTable": "表中数据为空",
+  "sLoadingRecords": "载入中...",
+  "sInfoThousands": ",",
+  "oPaginate": {
+    "sFirst": "首页",
+    "sPrevious": "上一页",
+    "sNext": "下一页",
+    "sLast": "末页",
+    "sJump": "跳转"
+  },
+  "oAria": {
+    "sSortAscending": ": 以升序排列此列",
+    "sSortDescending": ": 以降序排列此列"
+  }
+};
 
+okkpp.tableInit = function(selector, columns, url, param ){
+	var active = {};
+	active.render = function(data,type,full,meta){
+		return okkpp.dataTemplate($("#action").html(),meta);
+	}
+	columns.push(active);
+	$(selector).DataTable({
+		dom: 'Bfrtip',
+		buttons: [
+			'copy', 'csv', 'excel', 'pdf', 'print'
+		],
+		language:table_lang,
+		lengthMenu: [5, 10, 15],
+		stripeClasses: ["odd", "even"],
+		processing: true,
+		serverSide: true,
+        ordering: false,//是否启用排序
+        searching: false,//搜索
+		ajax: function (data, callback, settings) {
+			if(null==param){
+				param = new Object;
+			}
+			param.pageSize = data.length;
+			param.pageNo = (data.start / data.length)+1;
+			//ajax请求数据
+			okkpp.get(url, param, function(result){
+				result.recordsTotal = result.totalRow;
+				result.recordsFiltered = result.totalRow;
+				callback(result);
+			});
+		},
+		columns:columns
+	});
+}
+okkpp.tableReload = function(selector){
+	var table = $(selector).DataTable();
+	table.ajax.reload(null,false);
+}
+
+okkpp.handleResult = function(result){
+	if(result.code==200){
+//		alert(result.msg);
+	}else if(result.code==-200){
+		alert(result.msg);
+	}else{
+//		alert("unknown msg");
+	}
+}
+
+function edit(){
+	var table = $('#mytable').DataTable();
+	var data = table.row().data();
+	var f = okkpp.dataTemplate($("#form").html(), data);
+	$("#save_role").html(f);
+	$("#modal-default").modal('show');
+}
+function del(){
+	var table = $('#mytable').DataTable();
+	var data = table.row().data();
+	okkpp.post("/manager/user/delRole", data, function(data){
+		okkpp.tableReload("#mytable");
+	});
+}
 function isFloat(n) {
 	return ((typeof n==='number')&&(n%1!==0));
 }

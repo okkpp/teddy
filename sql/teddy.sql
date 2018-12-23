@@ -1,6 +1,6 @@
 -- --------------------------------------------------------
 -- 主机:                           127.0.0.1
--- 服务器版本:                        5.7.8-rc-log - MySQL Community Server (GPL)
+-- 服务器版本:                        5.7.23-log - MySQL Community Server (GPL)
 -- 服务器操作系统:                      Win64
 -- HeidiSQL 版本:                  7.0.0.4363
 -- --------------------------------------------------------
@@ -59,11 +59,16 @@ CREATE TABLE IF NOT EXISTS `t_post` (
   `created` datetime DEFAULT NULL COMMENT '创建日期',
   `enable` int(11) DEFAULT '1' COMMENT '是否启用',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=COMPACT COMMENT='推送';
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 ROW_FORMAT=COMPACT COMMENT='推送';
 
--- 正在导出表  teddy.t_post 的数据：~0 rows (大约)
+-- 正在导出表  teddy.t_post 的数据：~4 rows (大约)
 DELETE FROM `t_post`;
 /*!40000 ALTER TABLE `t_post` DISABLE KEYS */;
+INSERT INTO `t_post` (`id`, `author_id`, `channel_id`, `title`, `summary`, `tags`, `views`, `featured`, `weight`, `created`, `enable`) VALUES
+	(1, 2, 0, 'man age like wine', 'man age like wine!', 'age', 0, 0, 0, '2018-10-15 16:11:16', 1),
+	(2, 1, 0, '雪！雪！雪！', '落大雪', 'snow', 0, 0, 0, '2018-12-11 14:47:08', 1),
+	(3, 1, 0, '心狗', 'single to me', 'single', 0, 0, 0, '2018-12-11 14:47:57', 1),
+	(4, 1, 0, '水', '江河湖海浪淘沙波涛汹涌，汀浦滨滩潮漫浒洲渚沉浮。', '水', 0, 0, 0, '2018-12-11 14:49:17', 1);
 /*!40000 ALTER TABLE `t_post` ENABLE KEYS */;
 
 
@@ -75,11 +80,13 @@ CREATE TABLE IF NOT EXISTS `t_post_content` (
   `created` datetime DEFAULT NULL COMMENT '创建日期',
   `enable` int(11) DEFAULT '1' COMMENT '是否启用',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=COMPACT COMMENT='推送内容';
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 ROW_FORMAT=COMPACT COMMENT='推送内容';
 
--- 正在导出表  teddy.t_post_content 的数据：~0 rows (大约)
+-- 正在导出表  teddy.t_post_content 的数据：~1 rows (大约)
 DELETE FROM `t_post_content`;
 /*!40000 ALTER TABLE `t_post_content` DISABLE KEYS */;
+INSERT INTO `t_post_content` (`id`, `post_id`, `content`, `created`, `enable`) VALUES
+	(1, 3, 'single to me is about looking after yourself - physically, financially, mentally ...all of it and making your life better in every way you can think to, as well as finding more things you like and exploring them. Gym, setting financial goals and working towards them, hobbies that you can get stuck into (for example, I’m an amateur astronomer, gamer, book lover, math geek) that kinda thing. Not knowing what else there is in life without having someone is just sad.', '2018-12-11 14:47:57', 1);
 /*!40000 ALTER TABLE `t_post_content` ENABLE KEYS */;
 
 
@@ -108,7 +115,7 @@ CREATE TABLE IF NOT EXISTS `t_role` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 ROW_FORMAT=COMPACT COMMENT='角色管理';
 
--- 正在导出表  teddy.t_role 的数据：~0 rows (大约)
+-- 正在导出表  teddy.t_role 的数据：~2 rows (大约)
 DELETE FROM `t_role`;
 /*!40000 ALTER TABLE `t_role` DISABLE KEYS */;
 INSERT INTO `t_role` (`id`, `role`, `created`, `enable`) VALUES
@@ -125,16 +132,17 @@ CREATE TABLE IF NOT EXISTS `t_role_url` (
   `created` datetime DEFAULT NULL COMMENT '创建日期',
   `enable` int(11) DEFAULT '1' COMMENT '是否启用',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 ROW_FORMAT=COMPACT COMMENT='角色-资源';
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 ROW_FORMAT=COMPACT COMMENT='角色-资源';
 
--- 正在导出表  teddy.t_role_url 的数据：~2 rows (大约)
+-- 正在导出表  teddy.t_role_url 的数据：~5 rows (大约)
 DELETE FROM `t_role_url`;
 /*!40000 ALTER TABLE `t_role_url` DISABLE KEYS */;
 INSERT INTO `t_role_url` (`id`, `role_id`, `url_id`, `created`, `enable`) VALUES
 	(1, 1, 1, '2018-09-14 09:40:52', 1),
 	(2, 1, 2, '2018-09-14 09:40:53', 1),
 	(3, 2, 1, '2018-09-14 09:40:54', 0),
-	(4, 2, 2, '2018-09-19 16:30:17', 0);
+	(4, 2, 2, '2018-09-19 16:30:17', 1),
+	(5, 1, 3, '2018-12-20 18:31:54', 1);
 /*!40000 ALTER TABLE `t_role_url` ENABLE KEYS */;
 
 
@@ -145,14 +153,15 @@ CREATE TABLE IF NOT EXISTS `t_url` (
   `created` datetime DEFAULT NULL COMMENT '创建日期',
   `enable` int(11) DEFAULT '1' COMMENT '是否启用',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 ROW_FORMAT=COMPACT COMMENT='资源管理';
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 ROW_FORMAT=COMPACT COMMENT='资源管理';
 
--- 正在导出表  teddy.t_url 的数据：~2 rows (大约)
+-- 正在导出表  teddy.t_url 的数据：~3 rows (大约)
 DELETE FROM `t_url`;
 /*!40000 ALTER TABLE `t_url` DISABLE KEYS */;
 INSERT INTO `t_url` (`id`, `url`, `created`, `enable`) VALUES
 	(1, '/user/**', '2018-09-14 09:39:11', 1),
-	(2, '/**', '2018-09-14 09:39:44', 1);
+	(2, '/**', '2018-09-14 09:39:44', 1),
+	(3, '/manager/**', '2018-12-20 18:30:32', 1);
 /*!40000 ALTER TABLE `t_url` ENABLE KEYS */;
 
 

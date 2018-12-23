@@ -1,10 +1,10 @@
 package okkpp.service.impl;
 
 import io.jboot.aop.annotation.Bean;
+import okkpp.service.TeddyServiceBase;
 import okkpp.service.UserService;
 import okkpp.constants.EhCacheConstants;
 import okkpp.model.User;
-import io.jboot.service.JbootServiceBase;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +22,7 @@ import com.jfinal.plugin.activerecord.Record;
 @Service
 @Bean
 @Singleton
-public class UserServiceImpl extends JbootServiceBase<User> implements UserService {
+public class UserServiceImpl extends TeddyServiceBase<User> implements UserService {
 
 	static final Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
 	
@@ -61,5 +61,4 @@ public class UserServiceImpl extends JbootServiceBase<User> implements UserServi
 		}
 		return findUserUrl(user.getId());
 	}
-
 }

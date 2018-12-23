@@ -21,14 +21,17 @@ public class ShiroConfig {
 	public ShiroFilterFactoryBean shiroFilter() {
 		ShiroFilterFactoryBean shiroFilter = new ShiroFilterFactoryBean();
 		shiroFilter.setSecurityManager(securityManager());
-		shiroFilter.setLoginUrl("/swagger-ui.html");
-		shiroFilter.setUnauthorizedUrl("/user/unauthorized");
+//		shiroFilter.setLoginUrl("/swagger-ui.html");
+		shiroFilter.setLoginUrl("/auth/login");
+//		shiroFilter.setUnauthorizedUrl("/user/unauthorized");
+		shiroFilter.setUnauthorizedUrl("/auth/login");
 		
 		Map<String, String> filterChain = new LinkedHashMap<>();
 		filterChain.put("/user/logout", "logout");
 		filterChain.put("/user/login", "anon");
 		filterChain.put("/user/register", "anon");
 		filterChain.put("/user/unauthorized", "anon");
+		filterChain.put("/auth/login", "anon");
 		
 		filterChain.put("/swagger-ui.html", "anon");
 		filterChain.put("/webjars/**", "anon");

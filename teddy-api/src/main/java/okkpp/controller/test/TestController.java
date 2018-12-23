@@ -52,7 +52,7 @@ public class TestController extends BaseController {
 		List<UserDTO> list = new ArrayList<UserDTO>();
 		list.add(new UserDTO());
 		list.add(new UserDTO());
-		return new PagedResult<>(list, 1, 10, 1);
+		return new PagedResult<>(list, 1, 10, 1, 2);
 	}
 	
 	@ApiOperation("测试捕捉异常接口")
@@ -66,5 +66,11 @@ public class TestController extends BaseController {
 	public Result<String> validate(TestVO vo) {
 		
 		return successMsg("vo:"+vo.toString());
+	}
+	
+	@ApiOperation("测试jbootModel")
+	@GetMapping("model")
+	public Result<String> model(User user) {
+		return Result.success(user.toJson());
 	}
 }

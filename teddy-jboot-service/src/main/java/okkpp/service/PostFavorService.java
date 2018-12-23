@@ -1,5 +1,7 @@
 package okkpp.service;
 
+import okkpp.common.result.PageInfo;
+import okkpp.common.result.PagedResult;
 import okkpp.model.PostFavor;
 
 import java.util.List;
@@ -67,5 +69,5 @@ public interface PostFavorService  {
      */
     public boolean update(PostFavor model);
 
-
+	PagedResult<List<PostFavor>> list(PageInfo pageinfo, String tableName);
 }

@@ -31,6 +31,15 @@ public class Result<T> {
 		this.msg = msg;
 		this.data = data;
 	}
+	public static Result<String> judge(boolean result){
+		return judge(result, "success", "failed");
+	}
+	public static Result<String> judge(boolean result, String success, String failed){
+		if(result) {
+			return success(success);
+		}
+		return failed(failed);
+	}
 	public static Result<String> success() {
 		return success("success");
 	}

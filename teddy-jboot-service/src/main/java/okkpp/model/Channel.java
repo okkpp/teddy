@@ -11,5 +11,7 @@ public class Channel extends BaseChannel<Channel> {
 
 	private static final long serialVersionUID = 1L;
 
+	public static final String table = "t_channel";
+
 	
 }

@@ -11,17 +11,23 @@
 	<!-- Bootstrap 4.0-->
 	<link rel="stylesheet" href="/assets/vendor_components/bootstrap/dist/css/bootstrap.min.css">
 	
+	<!-- daterange picker -->	
+	<link rel="stylesheet" href="/assets/vendor_components/bootstrap-daterangepicker/daterangepicker.css">	
+	
+	<!-- weather weather -->
+	<link rel="stylesheet" href="/assets/vendor_components/weather-icons/weather-icons.css">	
+	
 	<!-- Data Table-->
 	<link rel="stylesheet" type="text/css" href="/assets/vendor_components/datatable/datatables.min.css"/>
 	
 	<!-- Bootstrap extend-->
-	<link rel="stylesheet" href="../css/bootstrap-extend.css">
+	<link rel="stylesheet" href="/css/bootstrap-extend.css">
 
 	<!-- Theme style -->
-	<link rel="stylesheet" href="../css/master_style.css">
+	<link rel="stylesheet" href="/css/master_style.css">
 
 	<!-- Ekan Admin skins -->
-	<link rel="stylesheet" href="../css/skins/_all-skins.css">		
+	<link rel="stylesheet" href="/css/skins/_all-skins.css">		
 
 	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->

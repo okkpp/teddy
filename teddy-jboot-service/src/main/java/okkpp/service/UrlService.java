@@ -1,5 +1,7 @@
 package okkpp.service;
 
+import okkpp.common.result.PageInfo;
+import okkpp.common.result.PagedResult;
 import okkpp.model.Url;
 
 import java.util.List;
@@ -67,5 +69,5 @@ public interface UrlService  {
      */
     public boolean update(Url model);
 
-
+	PagedResult<List<Url>> list(PageInfo pageinfo, String tableName);
 }

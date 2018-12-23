@@ -1,5 +1,7 @@
 package okkpp.service;
 
+import okkpp.common.result.PageInfo;
+import okkpp.common.result.PagedResult;
 import okkpp.model.Role;
 
 import java.util.List;
@@ -67,5 +69,5 @@ public interface RoleService  {
      */
     public boolean update(Role model);
 
-
+	PagedResult<List<Role>> list(PageInfo pageinfo, String tableName);
 }

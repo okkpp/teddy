@@ -5,9 +5,7 @@ import okkpp.service.PostService;
 import okkpp.vo.PostVO;
 import okkpp.common.result.PageInfo;
 import okkpp.common.result.PagedResult;
-import okkpp.common.result.Result;
 import okkpp.common.sql.QueryHelper;
-import okkpp.dto.PostContentDTO;
 import okkpp.dto.PostDTO;
 import okkpp.model.Post;
 import okkpp.model.PostContent;
@@ -21,7 +19,6 @@ import javax.inject.Singleton;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
-import org.springframework.util.Assert;
 
 import com.jfinal.aop.Before;
 import com.jfinal.plugin.activerecord.Page;
@@ -84,7 +81,7 @@ public class PostServiceImpl extends JbootServiceBase<Post> implements PostServi
 				sql.getSqlExceptSelect(),
 				sql.getParams());
 		
-		return new PagedResult<>(format(paginate), paginate.getPageNumber(), paginate.getPageSize(), paginate.getTotalPage());
+		return new PagedResult<>(format(paginate), paginate);
 	}
 
 	/**

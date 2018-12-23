@@ -11,5 +11,7 @@ public class RoleUrl extends BaseRoleUrl<RoleUrl> {
 
 	private static final long serialVersionUID = 1L;
 
+	public static final String table = "t_role_url";
+
 	
 }

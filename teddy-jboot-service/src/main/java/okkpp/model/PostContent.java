@@ -11,5 +11,7 @@ public class PostContent extends BasePostContent<PostContent> {
 
 	private static final long serialVersionUID = 1L;
 
+	public static final String table = "t_post_content";
+
 	
 }

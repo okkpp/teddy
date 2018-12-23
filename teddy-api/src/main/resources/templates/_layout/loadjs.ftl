@@ -16,13 +16,40 @@
 	<!-- FastClick -->
 	<script src="/assets/vendor_components/fastclick/lib/fastclick.js"></script>
 	
+	<!-- date-range-picker -->
+	<script src="/assets/vendor_components/moment/min/moment.min.js"></script>
+	<script src="/assets/vendor_components/bootstrap-daterangepicker/daterangepicker.js"></script>
+	
+    <!-- eChart Plugins -->
+    <script src="/assets/vendor_components/echarts/dist/echarts-en.min.js"></script>
+	<script src="/assets/vendor_components/echarts/dist2/echarts-liquidfill.min.js"></script>
+	
+	<!-- Sparkline -->
+	<script src="/assets/vendor_components/jquery-sparkline/dist/jquery.sparkline.min.js"></script>	
+	
+	<!-- weather for demo purposes -->
+	<script src="/assets/vendor_plugins/weather-icons/WeatherIcon.js"></script>
+	<script src="/js/pages/weather.js"></script>
+	
+	<!-- This is data table -->
+    <script src="/assets/vendor_components/datatable/datatables.min.js"></script>
+    
 	<!-- Ekan Admin App -->
 	<script src="/js/template.js"></script>
 	
 	<!-- Ekan Admin for demo purposes -->
 	<script src="/js/demo.js"></script>
 	
-	<!-- Ekan Admin for Data Table -->
-	<script src="/js/pages/data-table.js"></script>
+	<!-- Ekan Admin dashboard demo (This is only for demo purposes) -->
+	<script src="/js/pages/dashboard4.js"></script>
 	
+	<!-- Ekan Admin for Data Table 
+	<script src="/js/pages/data-table.js"></script>-->
+	
+	<script type="text/template" id="action">
+	<div class="list-icons d-inline-flex {row}">
+			<a href="#" class="dropdown-item" onclick="edit()"><i class="fa fa-pencil"></i>修改</a>
+			<a href="#" class="dropdown-item" onclick="del()"><i class="fa fa-remove"></i>删除</a>
+	</div>
+	</script>
 	<script src="/js/http.js"></script>
