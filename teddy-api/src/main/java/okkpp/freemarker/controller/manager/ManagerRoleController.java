@@ -4,10 +4,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import okkpp.freemarker.controller.base.FreemarkerBaseController;
-import okkpp.model.User;
+import okkpp.model.Role;
 
 @Controller
-@RequestMapping("manager/user")
-public class ManagerUserController extends FreemarkerBaseController<User> {
+@RequestMapping("manager/role")
+public class ManagerRoleController extends FreemarkerBaseController<Role> {
 
 }

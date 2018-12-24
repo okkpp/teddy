@@ -44,19 +44,10 @@
 						</div>
 						<div class="box-body">						
 							<div class="table-responsive">
-								
-								<table id="mytable" class="table table-lg invoice-archive">
-									<thead>
-										<tr>
+									<@mytable id="mytable">
 											<th>#</th>
 											<th>角色名</th>
-											<th class="text-center">Actions</th>
-										</tr>
-									</thead>
-									<tbody>
-									</tbody>
-								</table>
-																
+									</@mytable>
 							</div>
 						</div>
 					</div>
@@ -67,33 +58,11 @@
 		</section>
 		<!-- /.content -->
 	  </div>
-	  
-  <!-- modal Area -->              
-  <div class="modal fade" id="modal-default">
-	  <div class="modal-dialog" role="document">
-		<div class="modal-content">
-		  <div class="modal-header">
-			<h4 class="modal-title">修改</h4>
-			<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-			  <span aria-hidden="true">&times;</span></button>
-		  </div>
-		  <div class="modal-body">
-		  <form id="save_role">
 
-		  </form>
-		  </div>
-		  <div class="modal-footer">
-			<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-			<button id="save" type="button" class="btn btn-primary float-right">保存</button>
-		  </div>
-		</div>
-		<!-- /.modal-content -->
-	  </div>
-	  <!-- /.modal-dialog -->
-  </div>
-  <!-- /.modal -->
 </@layout>
 
+<@mymodal fromId="edit_from" savePath="/manager/role/save" tableReload="#mytable">
+</@mymodal>
 
 <script type="text/template" id="form">
 					<input hidden="true" name="id" value="{id}"/>
@@ -116,24 +85,37 @@
 						</div>
 					</div>
 </script>
+<script type="text/template" id="action">
+<div class="list-icons d-inline-flex">
+		<a href="#" class="dropdown-item" id="edit"><i class="fa fa-pencil"></i>修改</a>
+		<a href="#" class="dropdown-item" id="del"><i class="fa fa-remove"></i>删除</a>
+</div>
+</script>
 <script type="text/javascript">
+function edit(){
+	var data = {};
+	var table = $('#mytable').DataTable();
+	data = table.row($(this).parents('tr')).data();
+	var f = okkpp.dataTemplate($("#form").html(), data);
+	$("#edit_from").html(f);
+	$("#modal-default").modal('show');
+}
+function del(){
+	console.log("del");
+//	var table = $('#mytable').DataTable();
+//	var data = table.row($(this).parents('tr')).data();
+//	okkpp.post("/manager/role/del", data, function(data){
+//		okkpp.tableReload("#mytable");
+//	});
+}
+var funcs = [];
+funcs.push(edit);
+funcs.push(del);
 
 var param;
-
-$(document).ready(function() {
-    
-    columns = [
-    	{ "data": "id"},
-        { "data": "role"}
-    ];
-    okkpp.tableInit('#mytable', columns, "/manager/user/listRole", param);
-    
-    $("#save").on('click', function(){
-    	$("#modal-default").modal('hide');
-    	okkpp.post("/manager/user/saveRole", $("#save_role").serialize(), function(data){
-    		okkpp.tableReload("#mytable");
-    	});
-    });
-});
-
+columns = [
+	{ "data": "id"},
+    { "data": "role"}
+];
+okkpp.tableInit('#mytable', columns, "/manager/role/list", param, funcs);
 </script>

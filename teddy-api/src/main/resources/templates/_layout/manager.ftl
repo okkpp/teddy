@@ -68,3 +68,51 @@ okkpp.get("/json/sidebar.json", null, function(data){
 </body>
 </html>
 </#macro>
+
+<#macro mytable id="mytable">
+								<table id="${id}" class="table table-lg invoice-archive">
+									<thead>
+										<tr>
+											<#nested>
+											<th class="text-center">Actions</th>
+										</tr>
+									</thead>
+									<tbody>
+									</tbody>
+								</table>
+</#macro>
+
+<#macro mymodal fromId="edit_from" savePath="" tableReload="#mytable">
+  <!-- modal Area -->              
+  <div class="modal fade" id="modal-default">
+	  <div class="modal-dialog" role="document">
+		<div class="modal-content">
+		  <div class="modal-header">
+			<h4 class="modal-title">修改</h4>
+			<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			  <span aria-hidden="true">&times;</span></button>
+		  </div>
+		  <div class="modal-body">
+		  <form id="${fromId}">
+
+		  </form>
+		  </div>
+		  <div class="modal-footer">
+			<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+			<button id="${fromId}_save" type="button" class="btn btn-primary float-right">保存</button>
+		  </div>
+		</div>
+		<!-- /.modal-content -->
+	  </div>
+	  <!-- /.modal-dialog -->
+  </div>
+  <!-- /.modal -->
+  <script type="text/javascript">
+  $("#${fromId}_save").on('click', function(){
+		$("#modal-default").modal('hide');
+		okkpp.post("${savePath}", $("#${fromId}").serialize(), function(data){
+			okkpp.tableReload("${tableReload}");
+		});
+	});
+  </script>
+</#macro>

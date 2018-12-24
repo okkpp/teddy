@@ -98,4 +98,12 @@ public class PostServiceImpl extends JbootServiceBase<Post> implements PostServi
 		}
 		return data;
 	}
+
+	@Override
+	public PagedResult<List<Post>> list(PageInfo pageinfo) {
+		QueryHelper helper = new QueryHelper(Post.table);
+		helper.build();
+		Page<Post> paginate = DAO.paginate(pageinfo.getPageNo(), pageinfo.getPageSize(), helper.getSelect(), helper.getSqlExceptSelect(), helper.getParams());
+		return new PagedResult<List<Post>>(paginate.getList(), paginate);
+	}
 }

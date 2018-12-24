@@ -1,10 +1,12 @@
 package okkpp.service;
 
-import okkpp.model.Base;
-
 import java.util.List;
 
-public interface BaseService  {
+import io.jboot.db.model.JbootModel;
+import okkpp.common.result.PageInfo;
+import okkpp.common.result.PagedResult;
+
+public interface BaseService<M extends JbootModel<M>> {
 
     /**
      * find model by primary key
@@ -12,7 +14,7 @@ public interface BaseService  {
      * @param id
      * @return
      */
-    public Base findById(Object id);
+    public M findById(Object id);
 
 
     /**
@@ -20,7 +22,7 @@ public interface BaseService  {
      *
      * @return all <Base
      */
-    public List<Base> findAll();
+    public List<M> findAll();
 
 
     /**
@@ -38,7 +40,7 @@ public interface BaseService  {
      * @param model
      * @return
      */
-    public boolean delete(Base model);
+    public boolean delete(M model);
 
 
     /**
@@ -47,7 +49,7 @@ public interface BaseService  {
      * @param model
      * @return
      */
-    public boolean save(Base model);
+    public boolean save(M model);
 
 
     /**
@@ -56,7 +58,7 @@ public interface BaseService  {
      * @param model
      * @return if save or update success
      */
-    public boolean saveOrUpdate(Base model);
+    public boolean saveOrUpdate(M model);
 
 
     /**
@@ -65,7 +67,7 @@ public interface BaseService  {
      * @param model
      * @return
      */
-    public boolean update(Base model);
+    public boolean update(M model);
 
-
+    PagedResult<List<M>> list(PageInfo pageinfo);
 }

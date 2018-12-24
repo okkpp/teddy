@@ -1,8 +1,11 @@
 package okkpp.service.impl;
 
 import io.jboot.aop.annotation.Bean;
-import okkpp.service.TeddyServiceBase;
+import io.jboot.service.JbootServiceBase;
 import okkpp.service.UserService;
+import okkpp.common.result.PageInfo;
+import okkpp.common.result.PagedResult;
+import okkpp.common.sql.QueryHelper;
 import okkpp.constants.EhCacheConstants;
 import okkpp.model.User;
 
@@ -17,12 +20,13 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import com.jfinal.plugin.activerecord.Db;
+import com.jfinal.plugin.activerecord.Page;
 import com.jfinal.plugin.activerecord.Record;
 
 @Service
 @Bean
 @Singleton
-public class UserServiceImpl extends TeddyServiceBase<User> implements UserService {
+public class UserServiceImpl extends JbootServiceBase<User> implements UserService {
 
 	static final Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
 	
@@ -60,5 +64,13 @@ public class UserServiceImpl extends TeddyServiceBase<User> implements UserServi
 			return new ArrayList<>();
 		}
 		return findUserUrl(user.getId());
+	}
+
+	@Override
+	public PagedResult<List<User>> list(PageInfo pageinfo) {
+		QueryHelper helper = new QueryHelper(User.table);
+		helper.build();
+		Page<User> paginate = DAO.paginate(pageinfo.getPageNo(), pageinfo.getPageSize(), helper.getSelect(), helper.getSqlExceptSelect(), helper.getParams());
+		return new PagedResult<List<User>>(paginate.getList(), paginate);
 	}
 }

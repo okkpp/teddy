@@ -45,9 +45,7 @@
 						<div class="box-body">						
 							<div class="table-responsive">
 								
-								<table id="mytable" class="table table-lg invoice-archive">
-									<thead>
-										<tr>
+									<@mytable id="mytable">
 											<th>#</th>
 											<th>用户名</th>
 											<th>手机号</th>
@@ -55,12 +53,7 @@
 											<th>Mood</th>
 											<th>性别</th>
 											<th>生日</th>
-											<th class="text-center">Actions</th>
-										</tr>
-									</thead>
-									<tbody>
-									</tbody>
-								</table>
+									</@mytable>
 																
 							</div>
 						</div>
@@ -72,69 +65,78 @@
 		</section>
 		<!-- /.content -->
 	  </div>
+	  
 </@layout>
-<script type="text/template" id="tr">
-										<tr>
-											<td>#0025</td>
-											<td>February 2018</td>
-											<td>
-												<h6 class="mb-0">
-													<a href="#">Jacob</a>
-													<span class="d-block text-muted">Payment method: Skrill</span>
-												</h6>
-											</td>
-											<td>
-												<select name="status" class="form-control" data-placeholder="Select status">
-													<option value="overdue">Overdue</option>
-													<option value="hold" selected>On hold</option>
-													<option value="pending">Pending</option>
-													<option value="paid">Paid</option>
-													<option value="invalid">Invalid</option>
-													<option value="cancel">Canceled</option>
-												</select>
-											</td>
-											<td>
-												April 18, 2018
-											</td>
-											<td>
-												<span class="badge badge-success">Paid on Mar 16, 2018</span>
-											</td>
-											<td>
-												<h6 class="mb-0 font-weight-bold">$36,890 <span class="d-block text-muted font-weight-normal">VAT $4,859</span></h6>
-											</td>
-											<td class="text-center">
-												<div class="list-icons d-inline-flex">
-													<a href="#" class="list-icons-item mr-10"><i class="fa fa-eye-slash"></i></a>
-													<div class="list-icons-item dropdown">
-														<a href="#" class="list-icons-item dropdown-toggle" data-toggle="dropdown"><i class="fa fa-file-text"></i></a>
-														<div class="dropdown-menu dropdown-menu-right">
-															<a href="#" class="dropdown-item"><i class="fa fa-download"></i> Download</a>
-															<a href="#" class="dropdown-item"><i class="fa fa-print"></i> Print</a>
-															<div class="dropdown-divider"></div>
-															<a href="#" class="dropdown-item"><i class="fa fa-pencil"></i> Edit</a>
-															<a href="#" class="dropdown-item"><i class="fa fa-remove"></i> Remove</a>
-														</div>
-													</div>
-												</div>
-											</td>
-										</tr>
+
+<@mymodal fromId="edit_from" savePath="/manager/user/save" tableReload="#mytable">
+</@mymodal>
+
+<script type="text/template" id="form">
+					<input hidden="true" name="id" value="{id}"/>
+					<div class="form-group row">
+						<label class="col-form-label col-md-2">username</label>
+						<div class="col-md-10">
+							<input class="form-control" type="text" name="username" value="{username}">
+						</div>
+					</div>
+					<div class="form-group row">
+						<label class="col-form-label col-md-2">phone</label>
+						<div class="col-md-10">
+							<input class="form-control" type="text" name="phone" value="{phone}">
+						</div>
+					</div>
+					<div class="form-group row">
+						<label class="col-form-label col-md-2">email</label>
+						<div class="col-md-10">
+							<input class="form-control" type="text" name="email" value="{email}">
+						</div>
+					</div>
+					<div class="form-group row">
+						<label class="col-form-label col-md-2">mood</label>
+						<div class="col-md-10">
+							<input class="form-control" type="text" name="mood" value="{mood}">
+						</div>
+					</div>
+					<div class="form-group row">
+						<label class="col-form-label col-md-2">sex</label>
+						<div class="col-md-10">
+							<input class="form-control" type="text" name="sex" value="{sex}">
+						</div>
+					</div>
+					<div class="form-group row">
+						<label class="col-form-label col-md-2">enable</label>
+						<div class="col-md-10">
+							<input class="form-control" type="number" name="enable" value="{enable}">
+						</div>
+					</div>
 </script>
 <script type="text/template" id="action">
 <div class="list-icons d-inline-flex">
-<!--<a href="#" class="list-icons-item mr-10"><i class="fa fa-eye-slash"></i></a>-->
-<div class="list-icons-item dropdown">
-	<a href="#" class="list-icons-item dropdown-toggle" data-toggle="dropdown"><i class="fa fa-file-text"></i></a>
-	<div class="dropdown-menu dropdown-menu-right">
-		<a href="#" class="dropdown-item"><i class="fa fa-download"></i> Download</a>
-		<a href="#" class="dropdown-item"><i class="fa fa-print"></i> Print</a>
-		<div class="dropdown-divider"></div>
-		<a href="#" class="dropdown-item"><i class="fa fa-pencil"></i> Edit</a>
-		<a href="#" class="dropdown-item"><i class="fa fa-remove"></i> Remove</a>
-	</div>
-</div>
+		<a href="#" class="dropdown-item" id="edit"><i class="fa fa-pencil"></i>修改</a>
+		<a href="#" class="dropdown-item" id="del"><i class="fa fa-remove"></i>删除</a>
 </div>
 </script>
 <script type="text/javascript">
+function edit(){
+	var data = {};
+	var table = $('#mytable').DataTable();
+	data = table.row($(this).parents('tr')).data();
+	var f = okkpp.dataTemplate($("#form").html(), data);
+	$("#edit_from").html(f);
+	$("#modal-default").modal('show');
+}
+function del(){
+	var table = $('#mytable').DataTable();
+	var data = table.row($(this).parents('tr')).data();
+	okkpp.post("/manager/user/del", data, function(data){
+		okkpp.tableReload("#mytable");
+	});
+}
+var funcs = [];
+funcs.push(edit);
+funcs.push(del);
+
+var param;
 columns = [
 	{ "data": "id"},
     { "data": "username" },
@@ -143,7 +145,6 @@ columns = [
     { "data": "mood" },
     { "data": "sex" },
     { "data": "birthday" },
-    { "orderable":false,"render":function(data){return $("#action").html();} }
 ];
-okkpp.tableInit('#mytable', columns, "/manager/user/listUser", null);
+okkpp.tableInit('#mytable', columns, "/manager/user/list", param, funcs);
 </script>
