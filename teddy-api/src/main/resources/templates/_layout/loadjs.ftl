@@ -46,4 +46,10 @@
 	<!-- Ekan Admin for Data Table 
 	<script src="/js/pages/data-table.js"></script>-->
 	
+	<script type="text/template" id="action">
+	<div class="list-icons d-inline-flex">
+		<a href="#" class="dropdown-item" id="edit"><i class="fa fa-pencil"></i>修改</a>
+		<a href="#" class="dropdown-item" id="del"><i class="fa fa-remove"></i>删除</a>
+	</div>
+	</script>
 	<script src="/js/http.js"></script>

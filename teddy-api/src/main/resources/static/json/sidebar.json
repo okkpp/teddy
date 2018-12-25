@@ -1,6 +1,7 @@
 [{"title":"应用","name":"管理",
 "list":[
 {"name":"用户","url":"/manager/user"},
-{"name":"角色","url":"/manager/role"}
+{"name":"角色/资源","url":"/manager/role"},
+{"name":"用户/角色匹配","url":"/manager/match"}
 ]},
 {"title":"APP","name":"Manager","list":[]}]

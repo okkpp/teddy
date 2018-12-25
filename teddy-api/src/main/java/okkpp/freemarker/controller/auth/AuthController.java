@@ -17,15 +17,15 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import okkpp.common.base.BaseController;
 import okkpp.common.result.Result;
 import okkpp.common.utils.EhcacheUtil;
 import okkpp.constants.EhCacheConstants;
-import okkpp.model.User;
 import okkpp.service.UserService;
 
 @Controller
 @RequestMapping("auth")
-public class AuthController {
+public class AuthController extends BaseController {
 
 	@Autowired
 	UserService userService;
@@ -48,7 +48,7 @@ public class AuthController {
 			ehcacheUtil.put(EhCacheConstants.TOKEN_PREFIX + uuid.toString(), token);
 			response.addCookie(new Cookie("token", uuid.toString()));
 			
-			model.addAttribute("user", new Result<>((User)subject.getPrincipal()));
+			model.addAttribute("user", getSubject());
 			return "/auth/auth_login";
 		} catch (IncorrectCredentialsException e) {
 			model.addAttribute("result", new Result<>("密码错误"));

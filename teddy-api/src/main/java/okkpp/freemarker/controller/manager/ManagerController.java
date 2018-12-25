@@ -27,4 +27,10 @@ public class ManagerController extends BaseController {
 		model.addAttribute("user", getSubject());
 		return "/manager/manager_role";
 	}
+	
+	@RequestMapping("match")
+	public String match(Model model) {
+//		model.addAttribute("user", getSubject());
+		return "/manager/user_role_match";
+	}
 }

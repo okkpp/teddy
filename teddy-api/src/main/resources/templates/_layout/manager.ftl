@@ -82,9 +82,13 @@ okkpp.get("/json/sidebar.json", null, function(data){
 								</table>
 </#macro>
 
-<#macro mymodal fromId="edit_from" savePath="" tableReload="#mytable">
+<#macro mymodal tableId="mytable" savePath="">
   <!-- modal Area -->              
-  <div class="modal fade" id="modal-default">
+  <!-- Notice-->
+  <!-- modal id = ${tableId}_modal -->
+  <!-- modal form id = ${tableId}_modal_form -->
+  <!-- modal save button id = ${tableId}_modal_save -->
+  <div class="modal fade" id="${tableId}_modal">
 	  <div class="modal-dialog" role="document">
 		<div class="modal-content">
 		  <div class="modal-header">
@@ -93,13 +97,13 @@ okkpp.get("/json/sidebar.json", null, function(data){
 			  <span aria-hidden="true">&times;</span></button>
 		  </div>
 		  <div class="modal-body">
-		  <form id="${fromId}">
+		  <form id="${tableId}_modal_form">
 
 		  </form>
 		  </div>
 		  <div class="modal-footer">
 			<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-			<button id="${fromId}_save" type="button" class="btn btn-primary float-right">保存</button>
+			<button id="${tableId}_modal_save" type="button" class="btn btn-primary float-right">保存</button>
 		  </div>
 		</div>
 		<!-- /.modal-content -->
@@ -108,11 +112,48 @@ okkpp.get("/json/sidebar.json", null, function(data){
   </div>
   <!-- /.modal -->
   <script type="text/javascript">
-  $("#${fromId}_save").on('click', function(){
-		$("#modal-default").modal('hide');
-		okkpp.post("${savePath}", $("#${fromId}").serialize(), function(data){
-			okkpp.tableReload("${tableReload}");
+  $("#${tableId}_modal_save").on('click', function(){
+		$("#${tableId}_modal").modal('hide');
+		okkpp.post("${savePath}", $("#${tableId}_modal_form").serialize(), function(data){
+			okkpp.tableReload("#${tableId}");
 		});
 	});
   </script>
+</#macro>
+<#macro modaltpl tableId="">
+<script type="text/template" id="${tableId}_tpl">
+	<#nested>
+</script>
+</#macro>
+<#macro tablejs tableId="mytable" dataList="" del="">
+  <!-- Notice-->
+  <!-- modal id = ${tableId}_modal -->
+  <!-- modal form id = ${tableId}_modal_form -->
+  <!-- modal save button id = ${tableId}_modal_save -->
+<script type="text/javascript">
+function ${tableId}_edit(){
+	var data = {};
+	var table = $('#${tableId}').DataTable();
+	data = table.row($(this).parents('tr')).data();
+	var f = okkpp.dataTemplate($("#${tableId}_tpl").html(), data);
+	$("#${tableId}_modal_form").html(f);
+	$("#${tableId}_modal").modal('show');
+}
+function ${tableId}_del(){
+	var table = $('#${tableId}').DataTable();
+	var data = table.row($(this).parents('tr')).data();
+	okkpp.post("${del}", data, function(data){
+		okkpp.tableReload("#${tableId}");
+	});
+}
+var ${tableId}_funcs = [];
+${tableId}_funcs.push(${tableId}_edit);
+${tableId}_funcs.push(${tableId}_del);
+
+var ${tableId}_param;
+${tableId}_columns = [
+	<#nested>
+];
+okkpp.tableInit('#${tableId}', ${tableId}_columns, "${dataList}", ${tableId}_param, ${tableId}_funcs);
+</script>
 </#macro>
