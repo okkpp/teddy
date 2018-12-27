@@ -13,6 +13,9 @@
 	<!-- SlimScroll -->
 	<script src="/assets/vendor_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
 	
+	<!-- owlcarousel -->
+	<script src="../../assets/vendor_components/OwlCarousel2/dist/owl.carousel.js"></script>
+	
 	<!-- FastClick -->
 	<script src="/assets/vendor_components/fastclick/lib/fastclick.js"></script>
 	
