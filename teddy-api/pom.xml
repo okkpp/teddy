@@ -86,7 +86,8 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<configuration>
-					<skipTests>true</skipTests>
+					<skip>true</skip>
+					<!--<skipTests>true</skipTests>-->
 				</configuration>
 			</plugin>
 		</plugins>
