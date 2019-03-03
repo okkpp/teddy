@@ -3,4 +3,5 @@
 {"name":"用户","url":"/manager/user"},
 {"name":"角色","url":"/manager/role"}
 ]},
-{"title":"APP","name":"Manager","list":[]}]
+{"title":"APP","name":"Manager","list":[]},
+{"title":"LOCAL","name":"Local","list":[{"name":"本地","url":"/local/index"}]}]

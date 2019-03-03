@@ -6,3 +6,11 @@ spring:
     type: ehcache
     ehcache:
       config: classpath:spring-ehcache.xml
+      
+  resources:
+    static-locations:
+    - classpath:/META-INF/resources/
+    - classpath:/resources/
+    - classpath:/static/
+    - classpath:/public/
+    - file:/img/
