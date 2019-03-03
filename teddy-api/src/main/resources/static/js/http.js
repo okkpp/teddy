@@ -1,7 +1,7 @@
 var okkpp = okkpp || {
-	version : '1.0'
+	version : '2.0'
 };
-okkpp.post = function(url, param, callback, failureCallback){
+function post(url, param, callback, failureCallback){
 	$.ajax({
         url: url,
         data: param,
@@ -32,7 +32,9 @@ okkpp.post = function(url, param, callback, failureCallback){
         }
         });
 };
-okkpp.get = function(url, param, callback, failureCallback){
+okkpp.post = post;
+
+function get(url, param, callback, failureCallback){
 	$.ajax({
         url: url,
         data: param,
@@ -63,7 +65,7 @@ okkpp.get = function(url, param, callback, failureCallback){
         }
         });
 };
-
+okkpp.get = get;
 
 /**
  * 一个用作js模板替换的代码 template格式和数组格式如下 var template = "<div>
@@ -76,7 +78,7 @@ okkpp.get = function(url, param, callback, failureCallback){
  * 只需要数据格式对应
  */
 
-okkpp.dataTemplate4list = function(template, data, dec) {
+function dataTemplate4list(template, data, dec) {
 	var outPrint = "";
 	for ( var i = 0; i < data.length; i++) {
 		var matchs = template.match(/\{[a-zA-Z0-9\.\$_-]+\}/gi);
@@ -97,9 +99,16 @@ okkpp.dataTemplate4list = function(template, data, dec) {
 	}
 	return outPrint;
 };
+okkpp.dataTemplate4list = dataTemplate4list;
 
-okkpp.dataTemplate = function(template, obj, dec){
+function dataTemplate(template, obj, dec){
 	var matchs = template.match(/\{[a-zA-Z0-9\.\$_-]+\}/gi);
+	if(null==obj){
+		obj = {};
+	}
+	if(null==matchs){
+		return template;
+	}
 	var temp = "";
 	for ( var j = 0; j < matchs.length; j++) {
 		if (temp == "")
@@ -109,12 +118,13 @@ okkpp.dataTemplate = function(template, obj, dec){
 			temp = temp.replace(matchs[j], obj[re_match].toFixed(dec));
 		}
 		else{
-			temp = temp.replace(matchs[j], obj[re_match]?obj[re_match]:"");
+			temp = temp.replace(matchs[j], obj[re_match]!=null?obj[re_match]:"");
 		}
-		
 	}
 	return temp;
 }
+okkpp.dataTemplate = dataTemplate;
+
 // 表格汉化列表
 var table_lang = {
   "sProcessing": "处理中...",
@@ -142,16 +152,17 @@ var table_lang = {
   }
 };
 
-okkpp.tableInit = function(selector, columns, url, param ){
-	var active = {};
-	active.render = function(data,type,full,meta){
+function tableInit(selector, columns, url, param, funcs){
+	var add = {};
+	add.render = function(data,type,full,meta){
 		return okkpp.dataTemplate($("#action").html(),meta);
 	}
-	columns.push(active);
+	columns.push(add);
 	$(selector).DataTable({
 		dom: 'Bfrtip',
 		buttons: [
-			'copy', 'csv', 'excel', 'pdf', 'print'
+			'copy', 'csv', 'excel', 'pdf', 'print', 
+			{text:"添加",action: funcs[0]}
 		],
 		language:table_lang,
 		lengthMenu: [5, 10, 15],
@@ -175,13 +186,18 @@ okkpp.tableInit = function(selector, columns, url, param ){
 		},
 		columns:columns
 	});
+	$(selector+' tbody').on('click', 'a#edit', funcs[0]);
+	$(selector+' tbody').on('click', 'a#del', funcs[1]);
 }
-okkpp.tableReload = function(selector){
+okkpp.tableInit = tableInit;
+
+function tableReload(selector){
 	var table = $(selector).DataTable();
 	table.ajax.reload(null,false);
 }
+okkpp.tableReload = tableReload;
 
-okkpp.handleResult = function(result){
+function handleResult(result){
 	if(result.code==200){
 //		alert(result.msg);
 	}else if(result.code==-200){
@@ -190,21 +206,8 @@ okkpp.handleResult = function(result){
 //		alert("unknown msg");
 	}
 }
+okkpp.handleResult = handleResult;
 
-function edit(){
-	var table = $('#mytable').DataTable();
-	var data = table.row().data();
-	var f = okkpp.dataTemplate($("#form").html(), data);
-	$("#save_role").html(f);
-	$("#modal-default").modal('show');
-}
-function del(){
-	var table = $('#mytable').DataTable();
-	var data = table.row().data();
-	okkpp.post("/manager/user/delRole", data, function(data){
-		okkpp.tableReload("#mytable");
-	});
-}
 function isFloat(n) {
 	return ((typeof n==='number')&&(n%1!==0));
 }

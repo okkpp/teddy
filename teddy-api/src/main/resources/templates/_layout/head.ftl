@@ -11,6 +11,10 @@
 	<!-- Bootstrap 4.0-->
 	<link rel="stylesheet" href="/assets/vendor_components/bootstrap/dist/css/bootstrap.min.css">
 	
+	<!-- owlcarousel-->
+	<link rel="stylesheet" href="/assets/vendor_components/OwlCarousel2/dist/assets/owl.carousel.css">
+	<link rel="stylesheet" href="/assets/vendor_components/OwlCarousel2/dist/assets/owl.theme.default.css">
+	
 	<!-- daterange picker -->	
 	<link rel="stylesheet" href="/assets/vendor_components/bootstrap-daterangepicker/daterangepicker.css">	
 	

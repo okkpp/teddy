@@ -2,16 +2,30 @@ package #(serviceImplPackageName);
 
 import io.jboot.aop.annotation.Bean;
 import #(basePackage).#(tableMeta.modelName)Service;
+import okkpp.common.result.PageInfo;
+import okkpp.common.result.PagedResult;
+import okkpp.common.sql.QueryHelper;
 import #(modelPackage).#(tableMeta.modelName);
-import okkpp.service.TeddyServiceBase;
+import io.jboot.service.JbootServiceBase;
+
+import java.util.List;
 
 import javax.inject.Singleton;
 
 import org.springframework.stereotype.Service;
 
+import com.jfinal.plugin.activerecord.Page;
+
 @Service
 @Bean
 @Singleton
-public class #(tableMeta.modelName)ServiceImpl extends TeddyServiceBase<#(tableMeta.modelName)> implements #(tableMeta.modelName)Service {
+public class #(tableMeta.modelName)ServiceImpl extends JbootServiceBase<#(tableMeta.modelName)> implements #(tableMeta.modelName)Service {
 
+	@Override
+	public PagedResult<List<#(tableMeta.modelName)>> list(PageInfo pageinfo) {
+		QueryHelper helper = new QueryHelper(#(tableMeta.modelName).table);
+		helper.build();
+		Page<#(tableMeta.modelName)> paginate = DAO.paginate(pageinfo.getPageNo(), pageinfo.getPageSize(), helper.getSelect(), helper.getSqlExceptSelect(), helper.getParams());
+		return new PagedResult<List<#(tableMeta.modelName)>>(paginate.getList(), paginate);
+	}
 }

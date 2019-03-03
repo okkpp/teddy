@@ -13,6 +13,9 @@
 	<!-- SlimScroll -->
 	<script src="/assets/vendor_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
 	
+	<!-- owlcarousel -->
+	<script src="../../assets/vendor_components/OwlCarousel2/dist/owl.carousel.js"></script>
+	
 	<!-- FastClick -->
 	<script src="/assets/vendor_components/fastclick/lib/fastclick.js"></script>
 	
@@ -47,9 +50,9 @@
 	<script src="/js/pages/data-table.js"></script>-->
 	
 	<script type="text/template" id="action">
-	<div class="list-icons d-inline-flex {row}">
-			<a href="#" class="dropdown-item" onclick="edit()"><i class="fa fa-pencil"></i>修改</a>
-			<a href="#" class="dropdown-item" onclick="del()"><i class="fa fa-remove"></i>删除</a>
+	<div class="list-icons d-inline-flex">
+		<a href="#" class="dropdown-item" id="edit"><i class="fa fa-pencil"></i>修改</a>
+		<a href="#" class="dropdown-item" id="del"><i class="fa fa-remove"></i>删除</a>
 	</div>
 	</script>
 	<script src="/js/http.js"></script>

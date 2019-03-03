@@ -44,58 +44,48 @@
 						</div>
 						<div class="box-body">						
 							<div class="table-responsive">
-								
-								<table id="mytable" class="table table-lg invoice-archive">
-									<thead>
-										<tr>
+									<@mytable id="roletable">
 											<th>#</th>
 											<th>角色名</th>
-											<th class="text-center">Actions</th>
-										</tr>
-									</thead>
-									<tbody>
-									</tbody>
-								</table>
-																
+									</@mytable>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 		  <!-- /.row -->
-
+		  <div class="row">
+				<div class="col-12">
+					<div class="box">
+						<div class="box-header with-border">						
+							<h4 class="box-title">URL管理列表</h4>
+							<h6 class="box-subtitle">仅展示</h6>
+						</div>
+						<div class="box-body">						
+							<div class="table-responsive">
+									<@mytable id="urltable">
+											<th>#</th>
+											<th>url</th>
+									</@mytable>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		  <!-- /.row -->
 		</section>
 		<!-- /.content -->
 	  </div>
-	  
-  <!-- modal Area -->              
-  <div class="modal fade" id="modal-default">
-	  <div class="modal-dialog" role="document">
-		<div class="modal-content">
-		  <div class="modal-header">
-			<h4 class="modal-title">修改</h4>
-			<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-			  <span aria-hidden="true">&times;</span></button>
-		  </div>
-		  <div class="modal-body">
-		  <form id="save_role">
 
-		  </form>
-		  </div>
-		  <div class="modal-footer">
-			<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-			<button id="save" type="button" class="btn btn-primary float-right">保存</button>
-		  </div>
-		</div>
-		<!-- /.modal-content -->
-	  </div>
-	  <!-- /.modal-dialog -->
-  </div>
-  <!-- /.modal -->
 </@layout>
 
+<@mymodal tableId="roletable" savePath="/manager/role/save">
+</@mymodal>
 
-<script type="text/template" id="form">
+<@mymodal tableId="urltable" savePath="/manager/url/save">
+</@mymodal>
+
+<@modaltpl tableId="roletable">
 					<input hidden="true" name="id" value="{id}"/>
 					<div class="form-group row">
 						<label class="col-form-label col-md-2">role</label>
@@ -115,25 +105,30 @@
 							<input class="form-control" type="number" name="enable" value="{enable}">
 						</div>
 					</div>
-</script>
-<script type="text/javascript">
+</@modaltpl>
+<@modaltpl tableId="urltable">
+					<input hidden="true" name="id" value="{id}"/>
+					<div class="form-group row">
+						<label class="col-form-label col-md-2">url</label>
+						<div class="col-md-10">
+							<input class="form-control" type="text" name="url" value="{url}">
+						</div>
+					</div>
+					<div class="form-group row">
+						<label class="col-form-label col-md-2">enable</label>
+						<div class="col-md-10">
+							<input class="form-control" type="number" name="enable" value="{enable}">
+						</div>
+					</div>
+</@modaltpl>
 
-var param;
+<@tablejs tableId="roletable" dataList="/manager/role/list" del="/manager/role/del">
+{ "data": "id"},
+{ "data": "role"}
+</@tablejs>
 
-$(document).ready(function() {
-    
-    columns = [
-    	{ "data": "id"},
-        { "data": "role"}
-    ];
-    okkpp.tableInit('#mytable', columns, "/manager/user/listRole", param);
-    
-    $("#save").on('click', function(){
-    	$("#modal-default").modal('hide');
-    	okkpp.post("/manager/user/saveRole", $("#save_role").serialize(), function(data){
-    		okkpp.tableReload("#mytable");
-    	});
-    });
-});
+<@tablejs tableId="urltable" dataList="/manager/url/list" del="/manager/url/del">
+{ "data": "id"},
+{ "data": "url"}
+</@tablejs>
 
-</script>

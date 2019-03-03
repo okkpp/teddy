@@ -331,8 +331,8 @@
 				  <div class="flexbox align-self-center">					  
 				  	<img src="/images/user.jpg" class="float-left rounded-circle" alt="User Image">					  
 					<h4 class="user-name align-self-center">
-					  <span>${user.username!"未设置"}</span>
-					  <small>${user.email!"未设置"}</small>
+					  <span><#if user??>${user.username!"未设置"}<#else>未登录</#if></span>
+					  <small><#if user??>${user.email!"未设置"}<#else>未登录</#if></small>
 					</h4>
 				  </div>
               </li>

@@ -3,6 +3,9 @@ package okkpp.service.impl;
 import io.jboot.Jboot;
 import io.jboot.aop.annotation.Bean;
 import okkpp.service.RoleUrlService;
+import okkpp.common.result.PageInfo;
+import okkpp.common.result.PagedResult;
+import okkpp.common.sql.QueryHelper;
 import okkpp.config.PublicRoleConfig;
 import okkpp.model.RoleUrl;
 import io.jboot.service.JbootServiceBase;
@@ -16,6 +19,7 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import com.jfinal.plugin.activerecord.Db;
+import com.jfinal.plugin.activerecord.Page;
 import com.jfinal.plugin.activerecord.Record;
 
 @Service
@@ -37,6 +41,14 @@ public class RoleUrlServiceImpl extends JbootServiceBase<RoleUrl> implements Rol
 			result.add(r.getStr("url"));
 		}
 		return result;
+	}
+
+	@Override
+	public PagedResult<List<RoleUrl>> list(PageInfo pageinfo) {
+		QueryHelper helper = new QueryHelper(RoleUrl.table);
+		helper.build();
+		Page<RoleUrl> paginate = DAO.paginate(pageinfo.getPageNo(), pageinfo.getPageSize(), helper.getSelect(), helper.getSqlExceptSelect(), helper.getParams());
+		return new PagedResult<List<RoleUrl>>(paginate.getList(), paginate);
 	}
 
 }
